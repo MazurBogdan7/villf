@@ -1,0 +1,17 @@
+﻿<Window x:Class="villf.RegisterWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:villf"
+        mc:Ignorable="d"
+        Title="RegisterWin"
+         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
+        Width="{Binding SystemParameters.PrimaryScreenWidth}">
+    <Grid x:Name="regist"  ShowGridLines="True" Height="491" >
+
+        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100" Text="Логин" Opacity="0.5" HorizontalScrollBarVisibility="Auto"  MouseDoubleClick="ClL" />
+        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" Text="Пароль" Opacity="0.5" HorizontalScrollBarVisibility="Auto"  MouseDoubleClick="ClP" />
+        <TextBlock Margin="243,245,243,224"  TextAlignment="Center" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
+    </Grid>
+</Window>
