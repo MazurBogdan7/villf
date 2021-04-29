@@ -5,43 +5,24 @@ using System.Windows;
 using System.ComponentModel;
 namespace villf
 {
-    public class AppViewModel : INotifyPropertyChanged
+    public static class AppViewModel //: INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-       static public RoutedEventHandler AddUs => AddUser;
-        string login;
-        string pasw;
+      
+         public static RoutedEventHandler AddUs => AddUser;
         
         
-        public string Outputlogin
-        {
-            get => login;
-            set
-            {
-                login = value;
-                
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Outputlogin)));
-            }
-        }
-        public string Outputpas
-        {
-            get => pasw;
-            set
-            {
-                pasw = value;
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Outputpas)));
-            }
-        }
+        
+       
 
         public static void AddUser(object sender, RoutedEventArgs e) 
         {
-
-            RegisterWin winR = new RegisterWin();
-            SqlComponents Model = new SqlComponents();
             
+            
+            SqlComponents Model = new SqlComponents();
+           // string login = winR.login.Text;
+           // string pasw = winR.passw.Text;
 
-            Model.NewUser(Outputlogin, Outputpas);
+         //   Model.NewUser(login, pasw);
         }
         
     }

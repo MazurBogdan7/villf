@@ -9,9 +9,18 @@
          Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}">
     <Grid x:Name="regist"  ShowGridLines="True" Height="491" >
-
-        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100" Text="Логин" Opacity="0.5" HorizontalScrollBarVisibility="Auto"  MouseDoubleClick="ClL" />
-        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" Text="Пароль" Opacity="0.5" HorizontalScrollBarVisibility="Auto"  MouseDoubleClick="ClP" />
+        
+        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100"  TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto"   >
+            <TextBox.Background>
+                <ImageBrush ImageSource="/img_resurs/login_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+            </TextBox.Background>
+        </TextBox>
+            
+        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto"  >
+            <TextBox.Background>
+                <ImageBrush ImageSource="/img_resurs/pas_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+            </TextBox.Background>
+        </TextBox>
         <TextBlock Margin="243,245,243,224"  TextAlignment="Center" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
     </Grid>
 </Window>

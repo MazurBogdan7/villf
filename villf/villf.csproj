@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img_resurs\login_wotermark.GIF" />
+    <None Remove="img_resurs\pas_wotermark.GIF" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img_resurs\login_wotermark.GIF" />
+    <Resource Include="img_resurs\pas_wotermark.GIF" />
   </ItemGroup>
 
 </Project>
