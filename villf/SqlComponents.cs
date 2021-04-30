@@ -30,13 +30,28 @@ namespace villf
             else 
             {
                 read.Close();
+
+                SqlCommand NUser = new SqlCommand("numbUser", connection);
+                NUser.CommandType = System.Data.CommandType.StoredProcedure;
+                
+                int id = (Int32)NUser.ExecuteScalar();
+                
+                
+
                 string password = pas;
-                string SAddU = "INSERT INTO users (login , password) VALUES (@name,@pas) ";
+                string SAddU = "INSERT INTO users (numb_user, login , password) VALUES (@numb,@name,@pas) ";
+
                 SqlCommand AddUser = new SqlCommand(SAddU, connection);
+
+                
+                
+
+                SqlParameter idP = new SqlParameter("@numb", id);
                 SqlParameter passP = new SqlParameter("@pas", password);
                 SqlParameter loginP = new SqlParameter("@name",login);
                 AddUser.Parameters.Add(loginP);
                 AddUser.Parameters.Add(passP);
+                AddUser.Parameters.Add(idP);
                 int n = AddUser.ExecuteNonQuery();
                 //error add user
 
