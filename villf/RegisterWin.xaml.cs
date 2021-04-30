@@ -12,11 +12,19 @@ using System.Windows.Shapes;
 
 namespace villf
 {
- 
+
     public partial class RegisterWin : Window
     {
-       void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
+        public string log { get; set; }
+        public string pas { get; set; }
+        public RegisterWin()
         {
+            InitializeComponent();
+            this.DataContext = new AppViewModel();
+        }
+        void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+
             string objname = ((TextBox)sender).Name;
             if (objname == "login")
             {
@@ -36,11 +44,11 @@ namespace villf
 
                 else
                 {
-
                     login.Background = null;
+                    getLogin();
                 }
             }
-            else 
+            else
             {
                 if (passw.Text == "")
                 {
@@ -58,21 +66,21 @@ namespace villf
 
                 else
                 {
-
                     passw.Background = null;
+                    getpassw();
                 }
 
             }
         }
 
-        public  RegisterWin()
+        public string getLogin()
         {
-            InitializeComponent();
-            
+            return log = login.Text;
+        }
+        public string getpassw()
+        {
+            return pas = passw.Text;
         }
         
-
-
-
     }
 }
