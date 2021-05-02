@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:villf"
         mc:Ignorable="d"
         Title="MainVillf" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#3e3740">
         
     </Grid>
 </Window>

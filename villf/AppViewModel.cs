@@ -8,14 +8,14 @@ namespace villf
 {
     public class AppViewModel : baseVM
     {
-        private static string _Messeg;
+        private string _Messeg;
         public string Messeg
         {
-            get { return _Messeg; }
+            get => _Messeg;
             set {
 
                 _Messeg = value;
-                OnPropertyChanged("_Messeg");
+                OnPropertyChanged(nameof(Messeg));
             }
         }
 
@@ -37,17 +37,19 @@ namespace villf
             }
 
         }
-        public static RoutedEventHandler AddUs => AddUser;
+        static SqlComponents Model = new SqlComponents();
+        public static RoutedEventHandler AddUs => AddUser; //remake the event into a command sometime later
 
         public static void AddUser(object sender, RoutedEventArgs e)
         {
 
-            SqlComponents Model = new SqlComponents();
+            
             int contr = Model.NewUser(_login, _pasw);
             switch (contr)
             {
+                //add checks after adding commands
                 case 0:
-                    _Messeg = "Вы успешно авторизованны";
+                   // Messeg = "Вы успешно авторизованны";
                     break;
 
 
@@ -58,9 +60,16 @@ namespace villf
 
         private void Enter(object parameter)
         {
-            Application.Current.MainWindow.Close();
-            MainVillf main = new MainVillf();
-            main.Show();
+            if (Model.EnterUs(_login) == 1)
+            {
+                MainVillf main = new MainVillf();
+                main.Show();
+                Application.Current.MainWindow.Close();
+            }
+            else 
+            {
+                Messeg = "Такого пользователя ненайдено. Попробуйте зарегестрироатся :)";
+            }
         }
         private ICommand _EnterUser;
         public ICommand EnterUser => _EnterUser ?? (_EnterUser = new RelayCommand(Enter));

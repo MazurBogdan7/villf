@@ -8,7 +8,7 @@
         Title="RegisterWin"
          Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}">
-    <Grid x:Name="regist"  ShowGridLines="True" Height="491" >
+    <Grid x:Name="regist"  ShowGridLines="True" Height="491" Background="#3e3740" >
 
         <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100"  TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
             <TextBox.Background>
@@ -21,8 +21,8 @@
                 <ImageBrush ImageSource="/img_resurs/pas_wotermark.GIF" AlignmentX="Left" Stretch="None" />
             </TextBox.Background>
         </TextBox>
-        <TextBlock x:Name="mess" Margin="243,159,243,310" Text="{Binding Messeg, RelativeSource={RelativeSource 
+        <TextBlock x:Name="mess" Margin="243,159,243,310" Foreground="White" Text="{Binding Messeg, RelativeSource={RelativeSource 
                                                                 Mode=FindAncestor, AncestorType=Window}}"/>
-        <TextBlock Margin="243,245,243,224"  TextAlignment="Center" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
+        <TextBlock Margin="243,245,243,224"  TextAlignment="Center" Foreground="White" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
     </Grid>
 </Window>

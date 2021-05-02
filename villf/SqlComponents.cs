@@ -9,13 +9,12 @@ namespace villf
     public class SqlComponents
     {
         string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=films;Integrated Security=True";
-        public int NewUser(string name, string pas) 
+
+        //the mettod check if such a user
+        public int ChecUser(string login)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string login = name;
-
-            //the command check if such a user
 
             string S_user = "SELECT login FROM users WHERE login = @name";
             SqlCommand SearchU = new SqlCommand(S_user, connection);
@@ -25,11 +24,31 @@ namespace villf
             if (read.HasRows)
             {
                 //this user already exists
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+            read.Close();
+
+            connection.Close();
+        }
+        public int NewUser(string name, string pas) 
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string login = name;
+
+            
+            if (ChecUser(login) == 1)
+            {
+                //this user already exists
                 return 2;
             }
             else 
             {
-                read.Close();
+                
 
                 SqlCommand NUser = new SqlCommand("numbUser", connection);
                 NUser.CommandType = System.Data.CommandType.StoredProcedure;
@@ -64,6 +83,17 @@ namespace villf
             return 0; 
             //user added successfully
         }
+        public int EnterUs(string login) 
+        {
+            
+            if (ChecUser(login) == 1)
+            {
+                //this user already exists
+                return 1;
+            }
+            else { return 0; }
 
+            
+        }
     }
 }
