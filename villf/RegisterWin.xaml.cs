@@ -15,8 +15,7 @@ namespace villf
 
     public partial class RegisterWin : Window
     {
-        public string log { get; set; }
-        public string pas { get; set; }
+       
         public RegisterWin()
         {
             InitializeComponent();
@@ -45,7 +44,7 @@ namespace villf
                 else
                 {
                     login.Background = null;
-                    getLogin();
+                    
                 }
             }
             else
@@ -67,20 +66,13 @@ namespace villf
                 else
                 {
                     passw.Background = null;
-                    getpassw();
+                    
                 }
 
             }
         }
-
-        public string getLogin()
-        {
-            return log = login.Text;
-        }
-        public string getpassw()
-        {
-            return pas = passw.Text;
-        }
+        
+        
         
     }
 }

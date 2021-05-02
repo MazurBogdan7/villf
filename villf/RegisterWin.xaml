@@ -21,6 +21,8 @@
                 <ImageBrush ImageSource="/img_resurs/pas_wotermark.GIF" AlignmentX="Left" Stretch="None" />
             </TextBox.Background>
         </TextBox>
+        <TextBlock x:Name="mess" Margin="243,159,243,310" Text="{Binding Messeg, RelativeSource={RelativeSource 
+                                                                Mode=FindAncestor, AncestorType=Window}}"/>
         <TextBlock Margin="243,245,243,224"  TextAlignment="Center" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
     </Grid>
 </Window>

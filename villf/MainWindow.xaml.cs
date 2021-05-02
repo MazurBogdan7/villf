@@ -23,20 +23,63 @@ namespace villf
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new AppViewModel();
         }
-        private void ClL(object sender, MouseButtonEventArgs e)
-        {
-            login.Clear();
-        }
-        private void ClP(object sender, MouseButtonEventArgs e)
-        {
-            passw.Clear();
-        }
-        private void RegistUs(object sender, RoutedEventArgs e) 
+        private void RegistUs(object sender, RoutedEventArgs e)
         {
             RegisterWin reg = new RegisterWin();
             reg.Show();
 
+        }
+        void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            string objname = ((TextBox)sender).Name;
+            if (objname == "login")
+            {
+                if (login.Text == "")
+                {
+
+                    ImageBrush textImageBrush = new ImageBrush();
+                    textImageBrush.ImageSource =
+                        new BitmapImage(
+                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/login_wotermark.gif", UriKind.Relative)
+                        );
+                    textImageBrush.AlignmentX = AlignmentX.Left;
+                    textImageBrush.Stretch = Stretch.None;
+
+                    login.Background = textImageBrush;
+                }
+
+                else
+                {
+                    login.Background = null;
+
+                }
+            }
+            else
+            {
+                if (passw.Text == "")
+                {
+
+                    ImageBrush textImageBrush = new ImageBrush();
+                    textImageBrush.ImageSource =
+                        new BitmapImage(
+                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/pas_wotermark.GIF", UriKind.Relative)
+                        );
+                    textImageBrush.AlignmentX = AlignmentX.Left;
+                    textImageBrush.Stretch = Stretch.None;
+
+                    passw.Background = textImageBrush;
+                }
+
+                else
+                {
+                    passw.Background = null;
+
+                }
+
+            }
         }
 
 
