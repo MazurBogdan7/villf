@@ -43,7 +43,7 @@ namespace villf
                     ImageBrush textImageBrush = new ImageBrush();
                     textImageBrush.ImageSource =
                         new BitmapImage(
-                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/login_wotermark.gif", UriKind.Relative)
+                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/lw.png", UriKind.Relative)
                         );
                     textImageBrush.AlignmentX = AlignmentX.Left;
                     textImageBrush.Stretch = Stretch.None;
@@ -65,7 +65,7 @@ namespace villf
                     ImageBrush textImageBrush = new ImageBrush();
                     textImageBrush.ImageSource =
                         new BitmapImage(
-                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/pas_wotermark.GIF", UriKind.Relative)
+                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/pw.png", UriKind.Relative)
                         );
                     textImageBrush.AlignmentX = AlignmentX.Left;
                     textImageBrush.Stretch = Stretch.None;

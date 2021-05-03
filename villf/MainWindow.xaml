@@ -11,10 +11,11 @@
         Width="{Binding SystemParameters.PrimaryScreenWidth}"
         
         >
-    <Grid x:Name="Enter" ShowGridLines="True" Height="491" Background="#3e3740" >
+    <Grid x:Name="Enter" ShowGridLines="True" Height="496" Background="#3e3740" Width="1007" >
 
 
-        <TextBlock  Margin="289,216,289,257"  TextAlignment="Center" Text="Вход" Foreground="White" >
+
+        <TextBlock  Margin="324,216,289,257"  TextAlignment="Center" Text="Вход" Foreground="White" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
                     <i:InvokeCommandAction Command="{Binding EnterUser, Mode=OneWay}"/>
@@ -22,24 +23,24 @@
             </i:Interaction.Triggers>
         </TextBlock>
 
-        <TextBlock Margin="289,239,289,230"  TextAlignment="Center" MouseLeftButtonDown="RegistUs" Foreground="White" > Регистрация</TextBlock>
-        <TextBlock x:Name="messeg" Margin="208,266,208,203"  TextAlignment="Center" Text="{Binding Messeg}" Foreground="White"></TextBlock>
-        
-        <TextBox x:Name="login" Margin="272,156,271,316" MaxLength="100"  TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
+        <TextBlock Margin="324,239,289,230"  TextAlignment="Center" MouseLeftButtonDown="RegistUs" Foreground="White" > Регистрация</TextBlock>
+        <TextBlock x:Name="messeg" Margin="243,266,208,203"  TextAlignment="Center" Text="{Binding Messeg}" Foreground="White"/>
+
+        <TextBox x:Name="login" Margin="307,156,271,316" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
             <TextBox.Background>
-                <ImageBrush ImageSource="/img_resurs/login_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+                <ImageBrush ImageSource="/img_resurs/lw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
 
-        <TextBox x:Name="passw" Margin="272,180,271,290" MaxLength="100" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"  >
+        <TextBox x:Name="passw" Margin="307,180,271,290" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"  >
             <TextBox.Background>
-                <ImageBrush ImageSource="/img_resurs/pas_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+                <ImageBrush ImageSource="/img_resurs/pw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
-        <StackPanel Margin="191,52,191,363">
+        <StackPanel Margin="226,52,191,363">
             <Image Source="/img_resurs/TVillf.png" Height="82" Width="591"/>
         </StackPanel>
-        
-       
+
+
     </Grid>
 </Window>

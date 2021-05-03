@@ -8,17 +8,17 @@
         Title="RegisterWin"
          Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}">
-    <Grid x:Name="regist"  ShowGridLines="True" Height="491" Background="#3e3740" >
+    <Grid x:Name="regist" ShowGridLines="True" Height="496" Background="#3e3740" Width="1007">
 
-        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100"  TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
+        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
             <TextBox.Background>
-                <ImageBrush ImageSource="/img_resurs/login_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+                <ImageBrush ImageSource="/img_resurs/lw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
 
-        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"  >
+        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"  >
             <TextBox.Background>
-                <ImageBrush ImageSource="/img_resurs/pas_wotermark.GIF" AlignmentX="Left" Stretch="None" />
+                <ImageBrush ImageSource="/img_resurs/pw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
         <TextBlock x:Name="mess" Margin="243,159,243,310" Foreground="White" Text="{Binding Messeg, RelativeSource={RelativeSource 
