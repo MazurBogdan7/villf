@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using System.Data.SqlClient;
-
+using System.Collections.ObjectModel;
 namespace villf
 {
     public class SqlComponents
@@ -94,6 +94,36 @@ namespace villf
             else { return 0; }
 
             
+        }
+        public ObservableCollection<string> ChFilm(string name)
+        {
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string S_film = "SELECT name_film FROM films WHERE name_film like @name+'%'";
+            SqlCommand SearchF = new SqlCommand(S_film, connection);
+            SqlParameter nameP = new SqlParameter("@name", name);
+            SearchF.Parameters.Add(nameP);
+            SqlDataReader read = SearchF.ExecuteReader();
+
+            ObservableCollection<string> films = new ObservableCollection<string>();
+
+            if (read.HasRows)
+            {
+                
+                int i = 0;
+                while (read.Read())
+                {
+                     films [i] = (string)read.GetValue(i);
+                }
+                
+                
+            }
+            return films;
+            read.Close();
+
+
+            connection.Close();
         }
     }
 }

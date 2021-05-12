@@ -31,6 +31,7 @@ namespace villf
             reg.Show();
 
         }
+        
         void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
 

@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:villf"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="MainVillf"
-         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
+        Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}" d:DesignWidth="584.293" d:DesignHeight="342.474"
+        
         >
     <Window.Resources>
         <Style TargetType="Button">
@@ -20,6 +23,19 @@
         <Style TargetType="ListView">
             <Setter Property="Background" Value="#3e3740" />
         </Style>
+        <Style TargetType="TextBlock">
+            
+            <Setter Property="Foreground" Value="White" />
+            
+        </Style>
+        <DataTemplate x:Key="SearchItem" >
+            <Grid>
+                <StackPanel Width="140" Margin="10,10,10,10">
+                    <Image Height="100" />
+                    <TextBlock Height="20" Text="{Binding Path=name}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="#3e3740" Margin="0,0,0,-5">
         <Grid.ColumnDefinitions>
@@ -31,49 +47,85 @@
             <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,0,280" Grid.RowSpan="2">
-            <Image Source="/img_resurs/TVillf.png" Height="50"/>
+            <Image Source="/img_resurs/TVillf.png" Height="50" MouseLeftButtonDown="TabMain"/>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button  Content="Профиль" />
+            <Button  Content="Профиль" Command="{Binding Path=output}" Click="TabUser"/>
             <Button  Content="Избранное" />
             <Button  Content="Ваши Оценки"  />
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="102,0,0,280" Grid.RowSpan="2">
-            <TextBox  Foreground="White" Background="#3e3740"  Text="Поиск" Width="447" Margin="0,10,0,0" />
+        
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="102,0,0,280" Grid.RowSpan="2" >
+            <TextBox x:Name="search" Foreground="White" Width="395" Margin="0,10,0,0"  HorizontalScrollBarVisibility="Auto"
+                     TextChanged="TBchangSearch"
+                      >
+                <TextBox.Background>
+                    <ImageBrush ImageSource="/img_resurs/SearchW.png" AlignmentX="Left" Stretch="UniformToFill" />
+                </TextBox.Background>
+                
+            </TextBox>
             <TextBlock Width="445"  />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Hidden">
-            <StackPanel>
+        
+        
+        <TabControl x:Name="menuTab" Grid.Row="1" Background="#3e3740" Grid.Column="1" >
+            <TabItem x:Name="mainWind" Visibility="Collapsed" >
 
-                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" Height="140">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Width="140" Margin="10,10,10,10">
-                            <Image Height="100" />
-                            <!--Source="{binding}" -->
+                <ScrollViewer  VerticalScrollBarVisibility="Hidden">
+                    <StackPanel Height="268">
+
+                        <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" Height="140">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Width="140" Margin="10,10,10,10">
+                                    <Image Height="100" />
+                                    <!--Source="{binding}" -->
 
 
-                            <TextBlock Height="20"/>
-                        </StackPanel>
-                        <StackPanel Width="140" Margin="10,10,10,10">
+                                    <TextBlock Height="20" Text="ссуу"/>
+                                </StackPanel>
+                                <StackPanel Width="140" Margin="10,10,10,10">
+                                    <Image Height="100" />
+                                    <!--Source="{binding}" -->
 
-                        </StackPanel>
+
+                                    <TextBlock Height="20" Text="ссуу"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <ScrollViewer VerticalScrollBarVisibility="Disabled"  HorizontalScrollBarVisibility="Hidden" Height="129">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Width="140" Margin="10,10,10,10">
+
+                                </StackPanel>
+                                <StackPanel Width="140" Margin="10,10,10,10">
+
+                                </StackPanel>
+                                <StackPanel></StackPanel>
+                            </StackPanel>
+
+
+                        </ScrollViewer>
                     </StackPanel>
                 </ScrollViewer>
-                <ScrollViewer VerticalScrollBarVisibility="Disabled"  HorizontalScrollBarVisibility="Hidden" Height="140">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Width="140" Margin="10,10,10,10">
-
+            </TabItem >
+            <TabItem Visibility="Collapsed">
+                <ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{StaticResource SearchItem}" ItemsSource="{Binding films}" SelectionChanged="filmList_selectionChenged" >
+                    
+                </ListBox>
+            </TabItem>
+            <TabItem Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock TextAlignment="Center">Профиль</TextBlock>
+                        <StackPanel  Orientation="Horizontal">
+                        <Image HorizontalAlignment="Right"  Source="/img_resurs/TVillf.png" Height="50" Margin="200,0,0,0"></Image>
+                        <TextBlock x:Name="NameUser" Margin="10,20,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
+                        
                         </StackPanel>
-                        <StackPanel Width="140" Margin="10,10,10,10">
-
-                        </StackPanel>
-                    </StackPanel>
-
-
-                </ScrollViewer>
-            </StackPanel>
-        </ScrollViewer>
-
+                    <TextBlock  TextAlignment="Center">Почта</TextBlock>
+                    
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

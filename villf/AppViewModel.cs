@@ -4,10 +4,17 @@ using System.Text;
 using System.Windows;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 namespace villf
 {
-    public class AppViewModel : baseVM
+    public partial class AppViewModel : baseVM
     {
+
+        static SqlComponents Model = new SqlComponents();
+
         private string _Messeg;
         public string Messeg
         {
@@ -37,19 +44,19 @@ namespace villf
             }
 
         }
-        static SqlComponents Model = new SqlComponents();
+        
         public static RoutedEventHandler AddUs => AddUser; //remake the event into a command sometime later
 
         public static void AddUser(object sender, RoutedEventArgs e)
         {
 
-            
+
             int contr = Model.NewUser(_login, _pasw);
             switch (contr)
             {
                 //add checks after adding commands
                 case 0:
-                   // Messeg = "Вы успешно авторизованны";
+                    // Messeg = "Вы успешно авторизованны";
                     break;
 
 
@@ -57,26 +64,38 @@ namespace villf
 
         }
 
+        
 
+        
+
+        public void CreateNewWindow()
+        {
+            MainVillf main = new MainVillf(_login)
+            {
+                DataContext = new MainViewModel()
+            };
+                main.Show();
+        }
+        
         private void Enter(object parameter)
         {
             if (Model.EnterUs(_login) == 1)
             {
-                MainVillf main = new MainVillf();
-                main.Show();
-                Application.Current.MainWindow.Close();
-            }
-            else 
+                CreateNewWindow();
+                    Application.Current.MainWindow.Close();
+                }
+            else
             {
                 Messeg = "Такого пользователя ненайдено. Попробуйте зарегестрироатся :)";
             }
         }
+            
         private ICommand _EnterUser;
         public ICommand EnterUser => _EnterUser ?? (_EnterUser = new RelayCommand(Enter));
 
 
 
-
+        
 
     }
 }

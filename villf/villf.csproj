@@ -11,6 +11,7 @@
     <None Remove="img_resurs\lw.png" />
     <None Remove="img_resurs\pas_wotermark.GIF" />
     <None Remove="img_resurs\pw.png" />
+    <None Remove="img_resurs\SearchW.png" />
     <None Remove="img_resurs\TVillf.png" />
   </ItemGroup>
 
@@ -22,6 +23,7 @@
   <ItemGroup>
     <Resource Include="img_resurs\lw.png" />
     <Resource Include="img_resurs\pw.png" />
+    <Resource Include="img_resurs\SearchW.png" />
     <Resource Include="img_resurs\TVillf.png" />
   </ItemGroup>
 

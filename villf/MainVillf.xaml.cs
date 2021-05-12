@@ -12,13 +12,70 @@ using System.Windows.Shapes;
 
 namespace villf
 {
-    
+
     public partial class MainVillf : Window
     {
-        public MainVillf()
+        static int newIndex;
+        void Tabcontrol(int n)
         {
+
+            menuTab.SelectedIndex = n-1;
+            newIndex = menuTab.SelectedIndex;
+        }
+        public MainVillf(string login)
+        {
+           
             InitializeComponent();
-            this.DataContext = new AppViewModel();
+            this.DataContext = new MainViewModel();
+            NameUser.Text = login;
+
+
+        }
+        
+        void TBchangSearch(object sender, TextChangedEventArgs e)
+        {
+            MainViewModel vm = new MainViewModel();   
+            
+            if (search.Text == "")
+            {
+
+                ImageBrush textImageBrush = new ImageBrush();
+                textImageBrush.ImageSource =
+                    new BitmapImage(
+                        new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/SearchW.png", UriKind.Relative)
+                    );
+                textImageBrush.AlignmentX = AlignmentX.Left;
+                textImageBrush.Stretch = Stretch.None;
+
+                search.Background = textImageBrush;
+
+                Tabcontrol(1);
+            }
+
+            else
+            {
+                search.Background = null;
+
+                Tabcontrol(2);
+
+                vm.checkFilm(search.Text);
+                
+            }
+        }
+
+        public void TabMain(object sender, RoutedEventArgs e)
+        {
+            Tabcontrol(1);
+        }
+        public void filmList_selectionChenged(object sender, SelectionChangedEventArgs e)
+        {
+            MessageBox.Show("show");
+
+        }
+        public void TabUser(object sender, RoutedEventArgs e)
+        {
+            Tabcontrol(3);
+
         }
     }
 }
