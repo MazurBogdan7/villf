@@ -22,19 +22,20 @@ namespace villf
             menuTab.SelectedIndex = n-1;
             newIndex = menuTab.SelectedIndex;
         }
+        private MainViewModel vm;
         public MainVillf(string login)
         {
            
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            DataContext = new MainViewModel();
+               
             NameUser.Text = login;
 
-
+            
         }
-        
         void TBchangSearch(object sender, TextChangedEventArgs e)
         {
-            MainViewModel vm = new MainViewModel();   
+            vm = new MainViewModel();   
             
             if (search.Text == "")
             {
@@ -54,12 +55,15 @@ namespace villf
 
             else
             {
-                search.Background = null;
+                search.Background = null; //да да я
 
                 Tabcontrol(2);
 
                 vm.checkFilm(search.Text);
-                
+                this.filmlist.DataContext = vm;
+               
+
+
             }
         }
 
@@ -77,5 +81,7 @@ namespace villf
             Tabcontrol(3);
 
         }
+
+
     }
 }

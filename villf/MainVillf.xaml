@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:villf"
          xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+       
         mc:Ignorable="d"
         Title="MainVillf"
         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
@@ -28,11 +29,13 @@
             <Setter Property="Foreground" Value="White" />
             
         </Style>
-        <DataTemplate x:Key="SearchItem" >
+       
+        <DataTemplate x:Key="filmItem" >
             <Grid>
                 <StackPanel Width="140" Margin="10,10,10,10">
                     <Image Height="100" />
                     <TextBlock Height="20" Text="{Binding Path=name}"/>
+                    <!--ща я кальян перезабью ок-->
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -72,46 +75,39 @@
             <TabItem x:Name="mainWind" Visibility="Collapsed" >
 
                 <ScrollViewer  VerticalScrollBarVisibility="Hidden">
-                    <StackPanel Height="268">
-
-                        <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" Height="140">
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Width="140" Margin="10,10,10,10">
-                                    <Image Height="100" />
-                                    <!--Source="{binding}" -->
-
-
-                                    <TextBlock Height="20" Text="ссуу"/>
-                                </StackPanel>
-                                <StackPanel Width="140" Margin="10,10,10,10">
-                                    <Image Height="100" />
-                                    <!--Source="{binding}" -->
-
-
-                                    <TextBlock Height="20" Text="ссуу"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </ScrollViewer>
-                        <ScrollViewer VerticalScrollBarVisibility="Disabled"  HorizontalScrollBarVisibility="Hidden" Height="129">
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Width="140" Margin="10,10,10,10">
-
-                                </StackPanel>
-                                <StackPanel Width="140" Margin="10,10,10,10">
-
-                                </StackPanel>
-                                <StackPanel></StackPanel>
-                            </StackPanel>
-
-
-                        </ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                    <StackPanel  Grid.Row="1" >
+                        
+                            <ListBox x:Name="lbtest" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}" Background="#3e3740" MinHeight="200"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                            
+                        </ListBox>
+                            <ListBox ItemTemplate="{StaticResource filmItem}" Background="#3e3740" Height="200" Margin="0,5,0,0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                            
+                        </ListBox>
+                            <ListBox  Background="#3e3740" Height="200"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                            
+                        </ListBox>
                     </StackPanel>
+                    </Grid>
                 </ScrollViewer>
             </TabItem >
             <TabItem Visibility="Collapsed">
-                <ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{StaticResource SearchItem}" ItemsSource="{Binding films}" SelectionChanged="filmList_selectionChenged" >
-                    
+                <!--<ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{Binding filmItem}" ItemsSource="{Binding films}" SelectionChanged="filmList_selectionChenged" >
+                    я вот так у себя делал и потом короче похуй проебали контекста нет ща
+                </ListBox>-->
+                <ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" >
+                   
                 </ListBox>
+
             </TabItem>
             <TabItem Visibility="Collapsed">
                 <StackPanel>

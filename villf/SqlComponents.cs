@@ -95,7 +95,7 @@ namespace villf
 
             
         }
-        public ObservableCollection<string> ChFilm(string name)
+        public List<string> ChFilm(string name)
         {
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -106,24 +106,28 @@ namespace villf
             SearchF.Parameters.Add(nameP);
             SqlDataReader read = SearchF.ExecuteReader();
 
-            ObservableCollection<string> films = new ObservableCollection<string>();
+            List<string> films = new List<string>();
 
             if (read.HasRows)
             {
                 
                 int i = 0;
+                string f;
                 while (read.Read())
                 {
-                     films [i] = (string)read.GetValue(i);
+                    
+                    f = (string)read.GetValue(i);
+                    films.Add(f);
+
+                    i++;
                 }
                 
                 
             }
-            return films;
+            //F{SD{F{SD{F{SD[fahahhahahahah eto che blyat
             read.Close();
-
-
             connection.Close();
+            return films;
         }
     }
 }

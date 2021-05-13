@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Threading;
+
 namespace villf
 {
     class MainViewModel :baseVM
     {
         static SqlComponents Model = new SqlComponents();
 
-        string name;
-        public string login { get=>name; set { name = value; } }
-        
+        string log;
+        public string login { get=>log; set { log = value; } }
+
         public class film
         {
             public string name { get; set; }
+            public film(string Name)
+            {
+                name = Name;
+            }
         }
-        
 
-            private ObservableCollection<film> _films;
-            public ObservableCollection<film> films
+        private ObservableCollection<film> _films = new ObservableCollection<film>();
+        public ObservableCollection<film> films
             {
                 get => _films;
 
@@ -31,39 +36,27 @@ namespace villf
                     OnPropertyChanged(nameof(films));
                 }
             }
-            int i = 0;
-            /*private string _Search;
-            public string SearchN
+           
+      
+            public List<string> filmsNams = new List<string>();
+
+        public void checkFilm(string _Search)
             {
-                get => _Search;
-                set
-                {
+                
 
-                    _Search = value;
-                    OnPropertyChanged(nameof(SearchN));
-                }
-            }*/
-
-
-            public void checkFilm(string _Search)
-            {
-            ObservableCollection<string> filmsNams = null;
             if (_Search != null) { 
                 
-                filmsNams = Model.ChFilm(_Search); 
-                    while (filmsNams.Count != 0)
-                    {
-                        films = new ObservableCollection<film> { new film { name = filmsNams[i] } };
+                filmsNams = Model.ChFilm(_Search);
+                foreach (var entry in filmsNams) //понял спасяу не за что
+                {
+                    
 
-                    }
-
+                    films.Add(new film(entry));
                 }
+            }
 
             }
 
-           // private ICommand _chfilm;
-
-           // public ICommand chfilm => _chfilm ?? (_chfilm = new RelayCommand(checkFilm));
 
             public void outpInformUser(object parameter)
             {
