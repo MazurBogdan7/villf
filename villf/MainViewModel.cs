@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Drawing;
+
 namespace villf
 {
     class MainViewModel :baseVM

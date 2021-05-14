@@ -4,9 +4,7 @@ using System.Text;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
+
 
 namespace villf
 {
