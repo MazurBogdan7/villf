@@ -4,6 +4,10 @@ using System.Text;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+
 namespace villf
 {
     public class SqlComponents
@@ -30,8 +34,9 @@ namespace villf
             {
                 return 0;
             }
-            read.Close();
 
+
+            read.Close();
             connection.Close();
         }
         public int NewUser(string name, string pas) 
@@ -111,23 +116,91 @@ namespace villf
             if (read.HasRows)
             {
                 
-                int i = 0;
+                
                 string f;
                 while (read.Read())
                 {
                     
-                    f = (string)read.GetValue(i);
+                    f = (string)read.GetValue(0);
                     films.Add(f);
 
-                    i++;
+                    
                 }
                 
                 
             }
-            //F{SD{F{SD{F{SD[fahahhahahahah eto che blyat
+            
             read.Close();
             connection.Close();
             return films;
+        }
+        public List<byte[]> Films_img(string name)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string poster_films = "SELECT poster FROM films WHERE name_film like @name+'%'";
+            SqlCommand GetPosterFilms = new SqlCommand(poster_films, connection);
+            SqlParameter nameP = new SqlParameter("@name", name);
+            GetPosterFilms.Parameters.Add(nameP);
+            SqlDataReader read = GetPosterFilms.ExecuteReader();
+            List<byte[]> posters = new List<byte[]>();
+            if (read.HasRows)
+            {
+
+                while (read.Read())
+                {
+                    byte[] f = (byte[])read.GetValue(0);
+                    
+                    posters.Add(f);
+                }
+            }
+            read.Close();
+            connection.Close();
+            return posters;
+        }
+        public List<string> premiereFilms()
+        {
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string newfilms = "select name_film from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
+            SqlCommand GetPrFilms = new SqlCommand(newfilms,connection);
+            SqlDataReader read = GetPrFilms.ExecuteReader();
+            List<string> films = new List<string>();
+            if (read.HasRows) 
+            {
+                string f;
+                while (read.Read())
+                {
+                    f = (string)read.GetValue(0);
+                    films.Add(f);
+                }
+            }
+            read.Close();
+            connection.Close();
+            return films;
+        }
+        public List<byte[]> premiereFilms_img()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string poster_films = "select poster from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
+            SqlCommand GetPosterFilms = new SqlCommand(poster_films, connection);
+            SqlDataReader read = GetPosterFilms.ExecuteReader();
+            List<byte[]> posters = new List<byte[]>();
+            if (read.HasRows)
+            {
+                
+                while (read.Read())
+                {
+                    byte[] f = (byte[])read.GetValue(0);
+                    
+                    posters.Add(f);
+                }
+            }
+            read.Close();
+            connection.Close();
+            return posters;
         }
     }
 }

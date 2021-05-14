@@ -32,10 +32,10 @@
        
         <DataTemplate x:Key="filmItem" >
             <Grid>
-                <StackPanel Width="140" Margin="10,10,10,10">
-                    <Image Height="100" />
-                    <TextBlock Height="20" Text="{Binding Path=name}"/>
-                    <!--ща я кальян перезабью ок-->
+                <StackPanel  Margin="20,20,20,20" >
+                    <Image Height="100" Source="{Binding Path=poster}" Width="100" />
+                    <TextBlock Height="20" Foreground="White" Text="{Binding Path=name}"/>
+                 
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -83,29 +83,74 @@
                         </Grid.RowDefinitions>
                         
                     <StackPanel  Grid.Row="1" >
-                        
-                            <ListBox x:Name="lbtest" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}" Background="#3e3740" MinHeight="200"
+                        <!--listbox new films -->
+                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" Background="#3e3740" MinHeight="200"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                            
-                        </ListBox>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style>
+
+                                        <Setter Property="ListBoxItem.Margin" Value="5"/>
+                                        <Setter Property="ListBoxItem.Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+
+                            </ListBox>
+                            <!--listbox suggested films -->
                             <ListBox ItemTemplate="{StaticResource filmItem}" Background="#3e3740" Height="200" Margin="0,5,0,0"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                            
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style>
+
+                                        <Setter Property="ListBoxItem.Margin" Value="5"/>
+                                        <Setter Property="ListBoxItem.Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                         </ListBox>
-                            <ListBox  Background="#3e3740" Height="200"
+                            <!--listbox with filters by genres-->
+                            <ListBox  Background="#3e3740" Height="200" Margin="0,5,0,0"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                            
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style>
+
+                                        <Setter Property="ListBoxItem.Margin" Value="5"/>
+                                        <Setter Property="ListBoxItem.Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                         </ListBox>
                     </StackPanel>
                     </Grid>
                 </ScrollViewer>
             </TabItem >
             <TabItem Visibility="Collapsed">
-                <!--<ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{Binding filmItem}" ItemsSource="{Binding films}" SelectionChanged="filmList_selectionChenged" >
-                    я вот так у себя делал и потом короче похуй проебали контекста нет ща
-                </ListBox>-->
-                <ListBox x:Name="filmlist" Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" >
-                   
+
+                <ListBox x:Name="filmlist" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style>
+                            
+                            <Setter Property="ListBoxItem.Margin" Value="5"/>
+                            <Setter Property="ListBoxItem.Padding" Value="5"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                 </ListBox>
 
             </TabItem>

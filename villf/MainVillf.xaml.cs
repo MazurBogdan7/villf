@@ -25,10 +25,13 @@ namespace villf
         private MainViewModel vm;
         public MainVillf(string login)
         {
-           
+            vm = new MainViewModel();
             InitializeComponent();
-            DataContext = new MainViewModel();
-               
+
+            vm.prpremiere_films();
+            this.Nfilms.DataContext = vm;
+            this.DataContext = new MainViewModel();
+            
             NameUser.Text = login;
 
             
@@ -55,7 +58,7 @@ namespace villf
 
             else
             {
-                search.Background = null; //да да я
+                search.Background = null; 
 
                 Tabcontrol(2);
 
