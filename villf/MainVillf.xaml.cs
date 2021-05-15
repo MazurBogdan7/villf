@@ -69,14 +69,17 @@ namespace villf
 
             }
         }
-
-        public void TabMain(object sender, RoutedEventArgs e)
+       
+            public void TabMain(object sender, RoutedEventArgs e)
         {
             Tabcontrol(1);
         }
         public void filmList_selectionChenged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("show");
+            Tabcontrol(4);
+            var item = (ListBox)sender;
+            vm.info_film(item.SelectedItem);
+            this.film.DataContext = vm;
 
         }
         public void TabUser(object sender, RoutedEventArgs e)

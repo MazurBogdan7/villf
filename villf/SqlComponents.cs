@@ -200,5 +200,9 @@ namespace villf
             connection.Close();
             return posters;
         }
+        public ObservableCollection<InfoFilm> GetInfoFilm(string nameFilm)
+        {
+            
+        }
     }
 }

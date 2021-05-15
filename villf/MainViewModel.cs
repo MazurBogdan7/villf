@@ -79,6 +79,25 @@ namespace villf
             }
 
         }
+        private ObservableCollection<InfoFilm> _selectedFilm;
+        public ObservableCollection<InfoFilm> selectedFilm
+        {
+            get => _selectedFilm;
+            set
+            {
+
+                _selectedFilm = value;
+                OnPropertyChanged(nameof(selectedFilm));
+            }
+        }
+        public void info_film(object item) 
+        {
+            
+            film f = (film)item;
+            string name_film = f.name;
+            selectedFilm = Model.GetInfoFilm(name_film);
+
+        }
 
         public void outpInformUser(object parameter)
         {

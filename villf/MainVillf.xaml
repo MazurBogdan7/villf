@@ -84,7 +84,7 @@
                         
                     <StackPanel  Grid.Row="1" >
                         <!--listbox new films -->
-                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" Background="#3e3740" MinHeight="200"
+                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectionChanged="filmList_selectionChenged" Background="#3e3740" MinHeight="200"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -165,6 +165,22 @@
                     <TextBlock  TextAlignment="Center">Почта</TextBlock>
                     
                 </StackPanel>
+            </TabItem>
+            <TabItem x:Name="film" Visibility="Collapsed" DataContext="selectedFilm">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <StackPanel  Margin="20,20,20,20" >
+                            <Image Height="100" Source="{Binding Path=poster}" Width="100" />
+                            <TextBlock Height="20" Foreground="White" Text="{Binding Path=name}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    
+                </Grid>
             </TabItem>
         </TabControl>
 
