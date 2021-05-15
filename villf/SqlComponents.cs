@@ -200,9 +200,32 @@ namespace villf
             connection.Close();
             return posters;
         }
-        public ObservableCollection<InfoFilm> GetInfoFilm(string nameFilm)
+        public ObservableCollection<film> GetInfoFilm(string nameFilm)
         {
-            
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string inf_film = "select * from films where name_film = @name";
+            SqlCommand GetInfoFilm = new SqlCommand(inf_film,connection);
+            SqlParameter nameP = new SqlParameter("@name", nameFilm);
+            GetInfoFilm.Parameters.Add(nameP);
+            SqlDataReader read = GetInfoFilm.ExecuteReader();
+            ObservableCollection<film> ListInfoFilm = new ObservableCollection<film>();
+            if (read.HasRows)
+            {
+                while (read.Read())
+                {
+                    string n = read.GetString(8);
+                    ListInfoFilm.Add(new film
+                    (
+                         read.GetString(8),
+                         (byte[])read.GetValue(11)
+                    ));
+                }
+                
+            }
+            read.Close();
+            connection.Close();
+            return ListInfoFilm;
         }
     }
 }

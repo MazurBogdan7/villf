@@ -14,16 +14,10 @@ namespace villf
         string log;
         public string login { get=>log; set { log = value; } }
 
-        public class film
-        {
-            public string name { get; set; }
-            public byte[] poster { get; set; }
-            public film(string Name,byte[] Poster)
-            {
-                name = Name;
-                poster = Poster;
-            }
-        }
+        //public class film
+        //{
+            
+        //}
 
         private ObservableCollection<film> _films = new ObservableCollection<film>();
         public ObservableCollection<film> films
@@ -46,7 +40,16 @@ namespace villf
                 OnPropertyChanged(nameof(new_films));
             }
         }
-
+        private ObservableCollection<film> _infofilms = new ObservableCollection<film>();
+        public ObservableCollection<film> infofilms
+        {
+            get => _infofilms;
+            set
+            {
+                _infofilms = value;
+                OnPropertyChanged(nameof(infofilms));
+            }
+        }
         public List<string> filmsNams = new List<string>();
         public List<byte[]> posters = new List<byte[]>();
         public void checkFilm(string _Search)
@@ -79,8 +82,8 @@ namespace villf
             }
 
         }
-        private ObservableCollection<InfoFilm> _selectedFilm;
-        public ObservableCollection<InfoFilm> selectedFilm
+        private film _selectedFilm;
+        public film selectedFilm
         {
             get => _selectedFilm;
             set
@@ -94,9 +97,11 @@ namespace villf
         {
             
             film f = (film)item;
-            string name_film = f.name;
-            selectedFilm = Model.GetInfoFilm(name_film);
-
+            if (f != null)
+            {
+                string name_film = f.name;
+                infofilms = Model.GetInfoFilm(name_film);
+            }
         }
 
         public void outpInformUser(object parameter)

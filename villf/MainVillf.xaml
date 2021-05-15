@@ -84,7 +84,7 @@
                         
                     <StackPanel  Grid.Row="1" >
                         <!--listbox new films -->
-                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectionChanged="filmList_selectionChenged" Background="#3e3740" MinHeight="200"
+                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectionChanged="filmList_selectionChenged" SelectedItem="{Binding selectedFilm}" Background="#3e3740" MinHeight="200"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -138,7 +138,7 @@
             </TabItem >
             <TabItem Visibility="Collapsed">
 
-                <ListBox x:Name="filmlist" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" >
+                <ListBox x:Name="filmlist" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" SelectedItem="{Binding selectedFilm}" >
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -166,16 +166,16 @@
                     
                 </StackPanel>
             </TabItem>
-            <TabItem x:Name="film" Visibility="Collapsed" DataContext="selectedFilm">
+            <TabItem  Visibility="Collapsed"  >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <StackPanel  Margin="20,20,20,20" >
-                            <Image Height="100" Source="{Binding Path=poster}" Width="100" />
-                            <TextBlock Height="20" Foreground="White" Text="{Binding Path=name}"/>
+                    <StackPanel Grid.Column="0" >
+                        <StackPanel x:Name="film"  Margin="20,20,20,20" >
+                            <Image d:DataContext="{d:DesignInstance Type=local:film}" Height="100" Source="{Binding poster, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                            <TextBlock d:DataContext="{d:DesignInstance Type=local:film}" Height="20" Foreground="White" Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                     </StackPanel>

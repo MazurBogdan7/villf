@@ -27,7 +27,7 @@ namespace villf
         {
             vm = new MainViewModel();
             InitializeComponent();
-
+            DataContext = new MainViewModel();
             vm.prpremiere_films();
             this.Nfilms.DataContext = vm;
             this.DataContext = new MainViewModel();
@@ -79,7 +79,7 @@ namespace villf
             Tabcontrol(4);
             var item = (ListBox)sender;
             vm.info_film(item.SelectedItem);
-            this.film.DataContext = vm;
+            this.film.DataContext = vm.selectedFilm;
 
         }
         public void TabUser(object sender, RoutedEventArgs e)

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace villf
 {
-    public class InfoFilm : baseVM
+    public class film : baseVM
     {
         private string _name;
         private byte[] _poster;
-        public string name
+        /*public string name
         {
             get => _name;
             set
@@ -27,7 +27,33 @@ namespace villf
                 _poster = value;
                 OnPropertyChanged(nameof(poster));
             }
-        }
+        }*/
+        public string name 
+        {
+            get => _name;
+            set
+            {
 
+                _name = value;
+                OnPropertyChanged(nameof(name));
+            }
+
+        }
+        public byte[] poster 
+        {
+            get => _poster;
+            set
+            {
+
+                _poster = value;
+                OnPropertyChanged(nameof(poster));
+            }
+
+        }
+        public film(string Name, byte[] Poster)
+        {
+            name = Name;
+            poster = Poster;
+        }
     }
 }
