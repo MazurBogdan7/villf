@@ -71,22 +71,17 @@ namespace villf
         public List<byte[]> posters = new List<byte[]>();
         public void checkFilm(string _Search)
         {
-                
-
             if (_Search != null) {
                 int i = 0;
                 posters = Model.Films_img(_Search);
                 filmsNams = Model.ChFilm(_Search);
                 foreach (var entry in filmsNams)
                 {
-
                     films.Add(new film(entry,posters[i],0,0,"","","","",0,"",""));
                     i++;
                 }
             }
-
         }
-
         public void prpremiere_films() 
         {
             int i = 0;
@@ -131,7 +126,6 @@ namespace villf
         }
         public void info_film(object item) 
         {
-            
             film f = (film)item;
             if (selectedFilm != f)
                 selectedFilm = f;
@@ -143,7 +137,6 @@ namespace villf
                
             }
         }
-
         public void outpInformUser(object parameter)
         {
                 
@@ -151,9 +144,6 @@ namespace villf
         }
 
         private ICommand _output;
-
         public ICommand output => _output ?? (_output = new RelayCommand(outpInformUser));
-
-        
     }
 }

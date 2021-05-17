@@ -67,9 +67,6 @@ namespace villf
 
                 vm.checkFilm(search.Text);
                 this.filmlist.DataContext = vm;
-               
-
-
             }
         }
 

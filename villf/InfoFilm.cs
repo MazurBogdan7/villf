@@ -23,7 +23,6 @@ namespace villf
             get => _name;
             set
             {
-
                 _name = value;
                 OnPropertyChanged(nameof(name));
             }
@@ -34,7 +33,6 @@ namespace villf
             get => _poster;
             set
             {
-
                 _poster = value;
                 OnPropertyChanged(nameof(poster));
             }
@@ -45,7 +43,6 @@ namespace villf
             get => _year;
             set
             {
-
                 _year = value;
                 OnPropertyChanged(nameof(year));
             }
@@ -56,7 +53,6 @@ namespace villf
             get => _estimation;
             set
             {
-
                 _estimation = value;
                 OnPropertyChanged(nameof(estimation));
             }
@@ -68,11 +64,9 @@ namespace villf
             get => _country;
             set
             {
-
                 _country = value;
                 OnPropertyChanged(nameof(country));
             }
-
         }
 
         public string stile
@@ -80,22 +74,18 @@ namespace villf
             get => _stile;
             set
             {
-
                 _stile = value;
                 OnPropertyChanged(nameof(stile));
             }
-
         }
         public string date
         {
             get => _date;
             set
             {
-
                 _date = value;
                 OnPropertyChanged(nameof(date));
             }
-
         }
         public string time
         {
@@ -135,13 +125,10 @@ namespace villf
             get => _company;
             set
             {
-
                 _company = value;
                 OnPropertyChanged(nameof(company));
             }
-
         }
-
         public film(string Name, byte[] Poster,int Year,float Estimation,string Country,string Stile,string Date,string Time,int Budget,string Rating,string Company)
         {
             name = Name;
@@ -155,7 +142,6 @@ namespace villf
             budget = Budget;
             rating = Rating;
             company = Company;
-
         }
     }
     public class creator : baseVM

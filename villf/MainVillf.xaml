@@ -157,11 +157,12 @@
                 <StackPanel>
                     <TextBlock TextAlignment="Center" Text="Профиль"></TextBlock>
                         <StackPanel  Orientation="Horizontal">
-                        <Image HorizontalAlignment="Right"  Source="/img_resurs/TVillf.png" Height="50" Margin="200,0,0,0"></Image>
+                        <Image HorizontalAlignment="Right"  Height="50" Margin="200,0,0,0"></Image>
                         <TextBlock x:Name="NameUser" Margin="10,20,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
                         
                         </StackPanel>
-                    <TextBlock  TextAlignment="Center" Text="Почта"></TextBlock>
+                    <TextBlock  TextAlignment="Center" Text=""></TextBlock>
+                    <!--<TextBlock Text="{}"> </TextBlock>-->
                     
                 </StackPanel>
             </TabItem>
