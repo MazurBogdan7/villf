@@ -4,26 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:villf"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        d:DataContext="{d:DesignInstance Type=local:AppViewModel}"
         mc:Ignorable="d"
         Title="RegisterWin"
          Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}">
     <Grid x:Name="regist" ShowGridLines="True" Height="496" Background="#3e3740" Width="1007">
-
-        <TextBox x:Name="login" Margin="253,186,253,286" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
+        <StackPanel Margin="234,115,235,115">
+        <TextBox x:Name="login" Margin="0,10,0,0"  MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Height="25"   >
             <TextBox.Background>
                 <ImageBrush ImageSource="/img_resurs/lw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
 
-        <TextBox x:Name="passw" Margin="253,209,253,262" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"  >
+        <TextBox x:Name="passw" Margin="0,5,0,0" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged"  HorizontalScrollBarVisibility="Auto" Text="{Binding Path=pasw, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" Height="25" >
             <TextBox.Background>
                 <ImageBrush ImageSource="/img_resurs/pw.png" AlignmentX="Left" Stretch="UniformToFill" />
             </TextBox.Background>
         </TextBox>
-        <TextBlock x:Name="mess" Margin="243,159,243,310" Foreground="White" Text="{Binding Messeg, RelativeSource={RelativeSource 
-                                                                Mode=FindAncestor, AncestorType=Window}}"/>
-        <TextBlock Margin="243,245,243,224"  TextAlignment="Center" Foreground="White" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
+            <TextBox x:Name="mail" Margin="0,5,0,0" Height="25" Foreground="White" HorizontalScrollBarVisibility="Auto" TextChanged="OnTextBoxTextChanged"  Text="{Binding Path=mail, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
+                <TextBox.Background>
+                    <ImageBrush ImageSource="/img_resurs/mw.png" AlignmentX="Left" Stretch="UniformToFill" />
+                </TextBox.Background>
+            </TextBox>   
+        <TextBlock x:Name="mess" Margin="0,10,0,0"  Foreground="White" Text="{Binding Messeg}" Height="25"/>
+            
+        <TextBlock Margin="0,10,0,0" Height="25" TextAlignment="Center" Foreground="White"  > Зарегистрироваться</TextBlock>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding AddUs}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </StackPanel>
     </Grid>
     
 </Window>

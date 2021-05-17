@@ -170,6 +170,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" >
                         <StackPanel  Margin="20,20,20,20" >
@@ -225,7 +226,13 @@
                             
                         </StackPanel>
                     </StackPanel>
- 
+                    <StackPanel  Grid.Column="2">
+                        <StackPanel x:Name="people" Margin="20,20,20,20">
+                            
+                            
+                        </StackPanel>
+                        
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

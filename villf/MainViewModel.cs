@@ -57,6 +57,16 @@ namespace villf
                 OnPropertyChanged(nameof(infofilms));
             }
         }
+        private ObservableCollection<creator> _infoCreators = new ObservableCollection<creator>();
+        public ObservableCollection<creator> infoCreators
+        {
+            get => _infoCreators;
+            set
+            {
+                _infoCreators = value;
+                OnPropertyChanged(nameof(infoCreators));
+            }
+        }
         public List<string> filmsNams = new List<string>();
         public List<byte[]> posters = new List<byte[]>();
         public void checkFilm(string _Search)

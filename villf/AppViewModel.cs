@@ -7,13 +7,14 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Text.RegularExpressions;
 
 namespace villf
 {
-    public partial class AppViewModel : baseVM
+    public class AppViewModel : baseVM
     {
 
-        static SqlComponents Model = new SqlComponents();
+        public SqlComponents Model = new SqlComponents();
 
         private string _Messeg;
         public string Messeg
@@ -26,7 +27,7 @@ namespace villf
             }
         }
 
-        private static string _login;
+        private string _login;
         public string login {
             get => _login;
             set {
@@ -34,7 +35,7 @@ namespace villf
                 OnPropertyChanged(nameof(login));
             }
         }
-        private static string _pasw;
+        private string _pasw;
         public string pasw {
             get => _pasw;
             set
@@ -44,30 +45,78 @@ namespace villf
             }
 
         }
-        
-        public static RoutedEventHandler AddUs => AddUser; //remake the event into a command sometime later
-
-        public static void AddUser(object sender, RoutedEventArgs e)
+        private string _mail;
+        public string mail
         {
-
-
-            int contr = Model.NewUser(_login, _pasw);
-            switch (contr)
+            get => _mail;
+            set
             {
-                //add checks after adding commands
-                case 0:
-                    // Messeg = "Вы успешно авторизованны";
-                    break;
-
-
+                _mail = value;
+                OnPropertyChanged(nameof(mail));
             }
 
         }
-
         
 
-        
- 
+        public bool checkLogPusw(string log_pasw)
+        {
+            bool check = true;
+            if (log_pasw.IndexOf(' ') >= 0) check = false;
+            if (log_pasw.IndexOf('-') >= 0) check = false;
+            if (log_pasw.IndexOf('.') >= 0) check = false;
+            if (log_pasw.IndexOf('#') >= 0) check = false;
+            if (log_pasw.IndexOf('@') >= 0) check = false;
+            if (log_pasw.IndexOf('&') >= 0) check = false;
+            if (log_pasw.IndexOf('*') >= 0) check = false;
+            if (log_pasw.IndexOf('^') >= 0) check = false;
+            return check;
+        }
+        public bool checkMail(string chMail)
+        {
+            string pattern = @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$";
+            if (Regex.IsMatch(chMail, pattern, RegexOptions.IgnoreCase))
+            {
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+        public void AddUser(object parameter)
+        {
+            int contr = 3;
+
+            if (checkLogPusw(login) && checkLogPusw(pasw) && checkMail(mail)) {
+                contr = Model.NewUser(login, pasw, mail);
+                
+            }
+            else 
+            {
+                Messeg = "Убедитесь что ваши логин и пароль не содержат спец символы а ваш адрес введён коректно";
+                
+            }
+                switch (contr)
+                {
+                    //add checks after adding commands
+                case 0:
+                    Messeg = "Вы успешно авторизованны";
+                    break;
+                case 1:
+                    Messeg = "Ошибка в добавлении пользователя";
+                    break;
+                case 2:
+                    Messeg = "Такой пользователь уже существует";
+                    break;
+                }
+        }
+        private ICommand _AddUs;
+        public ICommand AddUs => _AddUs ?? (_AddUs = new RelayCommand(AddUser));
+
         public void CreateNewWindow()
         {
             MainVillf main = new MainVillf(_login)

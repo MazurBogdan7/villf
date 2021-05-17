@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="img_resurs\login_wotermark.GIF" />
     <None Remove="img_resurs\lw.png" />
+    <None Remove="img_resurs\mw.png" />
     <None Remove="img_resurs\pas_wotermark.GIF" />
     <None Remove="img_resurs\pw.png" />
     <None Remove="img_resurs\SearchW.png" />
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <Resource Include="img_resurs\lw.png" />
+    <Resource Include="img_resurs\mw.png" />
     <Resource Include="img_resurs\pw.png" />
     <Resource Include="img_resurs\SearchW.png" />
     <Resource Include="img_resurs\TVillf.png" />

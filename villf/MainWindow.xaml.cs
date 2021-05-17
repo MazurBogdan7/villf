@@ -18,12 +18,13 @@ namespace villf
     
     public partial class MainWindow : Window
     {
-        
 
+       
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = new AppViewModel();
+           
         }
         private void RegistUs(object sender, RoutedEventArgs e)
         {

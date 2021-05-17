@@ -158,4 +158,78 @@ namespace villf
 
         }
     }
+    public class creator : baseVM
+    {
+        private string _nameFilm;
+        private string _profession;
+        private string _name;
+        private string _surname;
+        private string _lastname;
+
+        public string nameFilm
+        {
+            get => _nameFilm;
+            set
+            {
+
+                _nameFilm = value;
+                OnPropertyChanged(nameof(nameFilm));
+            }
+
+        }
+        public string profession
+        {
+            get => _profession;
+            set
+            {
+
+                _profession = value;
+                OnPropertyChanged(nameof(profession));
+            }
+
+        }
+        public string name
+        {
+            get => _name;
+            set
+            {
+
+                _name = value;
+                OnPropertyChanged(nameof(name));
+            }
+
+        }
+
+        public string surname
+        {
+            get => _surname;
+            set
+            {
+
+                _surname = value;
+                OnPropertyChanged(nameof(surname));
+            }
+
+        }
+        public string lastname
+        {
+            get => _lastname;
+            set
+            {
+
+                _lastname = value;
+                OnPropertyChanged(nameof(lastname));
+            }
+
+        }
+        public creator(string NameFilm,string Profession,string Name,string Surname,string Lastname)
+        {
+            nameFilm = NameFilm;
+            profession = Profession;
+            name = Name;
+            surname = Surname;
+            lastname = Lastname;
+        }
+
+    }
 }

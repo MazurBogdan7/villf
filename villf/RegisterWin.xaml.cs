@@ -44,10 +44,10 @@ namespace villf
                 else
                 {
                     login.Background = null;
-                    
+
                 }
             }
-            else
+            else if (objname == "passw")
             {
                 if (passw.Text == "")
                 {
@@ -66,7 +66,30 @@ namespace villf
                 else
                 {
                     passw.Background = null;
-                    
+
+                }
+
+            }
+            else
+            {
+                if (mail.Text == "")
+                {
+
+                    ImageBrush textImageBrush = new ImageBrush();
+                    textImageBrush.ImageSource =
+                        new BitmapImage(
+                            new Uri("/Users/Bogdan/source/repos/villf/villf/img_resurs/mw.png", UriKind.Relative)
+                        );
+                    textImageBrush.AlignmentX = AlignmentX.Left;
+                    textImageBrush.Stretch = Stretch.None;
+
+                    mail.Background = textImageBrush;
+                }
+
+                else
+                {
+                    mail.Background = null;
+
                 }
 
             }

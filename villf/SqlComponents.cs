@@ -37,7 +37,7 @@ namespace villf
             read.Close();
             connection.Close();
         }
-        public int NewUser(string name, string pas) 
+        public int NewUser(string name, string pas, string mail) 
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -61,7 +61,7 @@ namespace villf
                 
 
                 string password = pas;
-                string SAddU = "INSERT INTO users (numb_user, login , password) VALUES (@numb,@name,@pas) ";
+                string SAddU = "INSERT INTO users (numb_user, login , password, mail) VALUES (@numb,@name,@pas,@mail) ";
 
                 SqlCommand AddUser = new SqlCommand(SAddU, connection);
 
@@ -71,9 +71,12 @@ namespace villf
                 SqlParameter idP = new SqlParameter("@numb", id);
                 SqlParameter passP = new SqlParameter("@pas", password);
                 SqlParameter loginP = new SqlParameter("@name",login);
+                SqlParameter mailP = new SqlParameter("@mail", mail);
+
                 AddUser.Parameters.Add(loginP);
                 AddUser.Parameters.Add(passP);
                 AddUser.Parameters.Add(idP);
+                AddUser.Parameters.Add(mailP);
                 int n = AddUser.ExecuteNonQuery();
                 //error add user
 
@@ -240,7 +243,7 @@ namespace villf
         }
 
 
-        public ObservableCollection<film> GetInfoFilm(string nameFilm) //name_film,poster,year,films.country,style,budget,premiere_date,time,rating_MPPA,rating_rus,estimation,name_company
+        public ObservableCollection<film> GetInfoFilm(string nameFilm) 
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -296,5 +299,11 @@ namespace villf
             return ListInfoFilm;
         }
 
+        //public ObservableCollection<film> GetInfoCreators(string nameFilm)
+        //{
+
+
+
+        //}
     }
 }
