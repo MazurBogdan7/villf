@@ -21,6 +21,7 @@ namespace villf
 
             menuTab.SelectedIndex = n-1;
             newIndex = menuTab.SelectedIndex;
+           
         }
         private MainViewModel vm;
         public MainVillf(string login)
@@ -30,6 +31,8 @@ namespace villf
             DataContext = new MainViewModel();
             vm.prpremiere_films();
             this.Nfilms.DataContext = vm;
+            vm.suggestedFilm();
+            this.SugFilm.DataContext = vm;
             this.DataContext = new MainViewModel();
             
             NameUser.Text = login;
@@ -69,25 +72,29 @@ namespace villf
 
             }
         }
-       
-            public void TabMain(object sender, RoutedEventArgs e)
+
+        public void TabMain(object sender, RoutedEventArgs e)
         {
             Tabcontrol(1);
         }
-        public void filmList_selectionChenged(object sender, SelectionChangedEventArgs e)
+        private void Nfilms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Tabcontrol(4);
             var item = (ListBox)sender;
-            vm.info_film(item.SelectedItem);
-            this.film.DataContext = vm.selectedFilm;
+            if (item.SelectedItem != null)
+            {
+                Tabcontrol(4);
 
+                vm.info_film(item.SelectedItem);
+                
+                this.film.DataContext = vm.infofilms;
+                
+            }
         }
         public void TabUser(object sender, RoutedEventArgs e)
         {
             Tabcontrol(3);
 
         }
-
 
     }
 }

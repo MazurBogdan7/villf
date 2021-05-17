@@ -25,4 +25,5 @@
                                                                 Mode=FindAncestor, AncestorType=Window}}"/>
         <TextBlock Margin="243,245,243,224"  TextAlignment="Center" Foreground="White" MouseLeftButtonDown="{x:Static local:AppViewModel.AddUs}" > Зарегистрироваться</TextBlock>
     </Grid>
+    
 </Window>

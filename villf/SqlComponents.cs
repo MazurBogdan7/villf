@@ -132,6 +132,51 @@ namespace villf
             connection.Close();
             return films;
         }
+        public List<string> getNamefilm(string newfilms)
+        {
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+             
+            SqlCommand GetPrFilms = new SqlCommand(newfilms, connection);
+            SqlDataReader read = GetPrFilms.ExecuteReader();
+            List<string> films = new List<string>();
+            if (read.HasRows)
+            {
+                string f;
+                while (read.Read())
+                {
+                    f = (string)read.GetValue(0);
+                    films.Add(f);
+                }
+            }
+            read.Close();
+            connection.Close();
+            return films;
+        }
+        public List<byte[]> getPosterFilm(string poster_films)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            
+            SqlCommand GetPosterFilms = new SqlCommand(poster_films, connection);
+            SqlDataReader read = GetPosterFilms.ExecuteReader();
+            List<byte[]> posters = new List<byte[]>();
+            if (read.HasRows)
+            {
+
+                while (read.Read())
+                {
+                    byte[] f = (byte[])read.GetValue(0);
+
+                    posters.Add(f);
+                }
+            }
+            read.Close();
+            connection.Close();
+            return posters;
+        }
+
         public List<byte[]> Films_img(string name)
         {
             SqlConnection connection = new SqlConnection(connectionString);
@@ -158,67 +203,90 @@ namespace villf
         }
         public List<string> premiereFilms()
         {
-
+            string newfilms = "select name_film from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
+            return getNamefilm(newfilms);
+        }
+        public List<byte[]> premiereFilms_img()
+        {
+            
+            string poster_films = "select poster from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
+            return getPosterFilm(poster_films);
+        }
+        public List<object> suggestedFilm()
+        {
+            
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string newfilms = "select name_film from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
-            SqlCommand GetPrFilms = new SqlCommand(newfilms,connection);
+            string randFilms = "select top 7 name_film, poster from films ORDER BY NEWID()";
+            SqlCommand GetPrFilms = new SqlCommand(randFilms, connection);
             SqlDataReader read = GetPrFilms.ExecuteReader();
-            List<string> films = new List<string>();
-            if (read.HasRows) 
+            List<object> films = new List<object>();
+            if (read.HasRows)
             {
                 string f;
+                byte[] p;
                 while (read.Read())
                 {
                     f = (string)read.GetValue(0);
+                    p = (byte[])read.GetValue(1);
                     films.Add(f);
+                    films.Add(p);
                 }
             }
             read.Close();
             connection.Close();
             return films;
+
         }
-        public List<byte[]> premiereFilms_img()
+
+
+        public ObservableCollection<film> GetInfoFilm(string nameFilm) //name_film,poster,year,films.country,style,budget,premiere_date,time,rating_MPPA,rating_rus,estimation,name_company
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string poster_films = "select poster from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
-            SqlCommand GetPosterFilms = new SqlCommand(poster_films, connection);
-            SqlDataReader read = GetPosterFilms.ExecuteReader();
-            List<byte[]> posters = new List<byte[]>();
-            if (read.HasRows)
-            {
-                
-                while (read.Read())
-                {
-                    byte[] f = (byte[])read.GetValue(0);
-                    
-                    posters.Add(f);
-                }
-            }
-            read.Close();
-            connection.Close();
-            return posters;
-        }
-        public ObservableCollection<film> GetInfoFilm(string nameFilm)
-        {
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            string inf_film = "select * from films where name_film = @name";
+            string inf_film = "infFilm";
             SqlCommand GetInfoFilm = new SqlCommand(inf_film,connection);
-            SqlParameter nameP = new SqlParameter("@name", nameFilm);
+            GetInfoFilm.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter nameP = new SqlParameter {
+                ParameterName = "@name",
+                Value = nameFilm
+
+            }; 
             GetInfoFilm.Parameters.Add(nameP);
             SqlDataReader read = GetInfoFilm.ExecuteReader();
             ObservableCollection<film> ListInfoFilm = new ObservableCollection<film>();
+            string NthString = "";
+            float i = 0;
             if (read.HasRows)
             {
                 while (read.Read())
                 {
-                    string n = read.GetString(8);
+                    string namefilm = read.GetString(0) ?? NthString;
+                    byte[] poster = (byte[])read.GetValue(1) ?? new byte[] { };
+                    int year = (int)read.GetValue(2);
+                    string country = read.GetString(3) ?? NthString;
+                    string style = read.GetString(4) ?? NthString;
+                    int budget = Convert.ToInt32(read.GetValue(5));
+                    string date_premiere = Convert.ToString( read.GetValue(6)) ?? NthString;
+                    string time = Convert.ToString(read.GetValue(7)) ?? NthString;
+                    string MPAA_rating = read.GetString(8) ?? NthString;
+                    string rus_rating = read.GetString(9) ?? NthString;
+                    float estimation = read.GetValue(10) == DBNull.Value ? 0: (float)read.GetValue(10);
+                    string company = read.GetString(11) ?? NthString;
+
                     ListInfoFilm.Add(new film
                     (
-                         read.GetString(8),
-                         (byte[])read.GetValue(11)
+                        namefilm,
+                        poster,
+                        year,
+                        estimation,
+                        country,
+                        style,
+                        date_premiere,
+                        time,
+                        budget,
+                        rus_rating,
+                        company
                     ));
                 }
                 
@@ -227,5 +295,6 @@ namespace villf
             connection.Close();
             return ListInfoFilm;
         }
+
     }
 }

@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:villf"
-         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
-       
         mc:Ignorable="d"
         Title="MainVillf"
         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
@@ -62,7 +61,7 @@
             <TextBox x:Name="search" Foreground="White" Width="395" Margin="0,10,0,0"  HorizontalScrollBarVisibility="Auto"
                      TextChanged="TBchangSearch"
                       >
-                <TextBox.Background>
+                <TextBox.Background> 
                     <ImageBrush ImageSource="/img_resurs/SearchW.png" AlignmentX="Left" Stretch="UniformToFill" />
                 </TextBox.Background>
                 
@@ -82,9 +81,9 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         
-                    <StackPanel  Grid.Row="1" >
+                    <StackPanel x:Name="stack" Grid.Row="1" >
                         <!--listbox new films -->
-                            <ListBox x:Name="Nfilms" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectionChanged="filmList_selectionChenged" SelectedItem="{Binding selectedFilm}" Background="#3e3740" MinHeight="200"
+                            <ListBox x:Name="Nfilms" MouseDoubleClick="Nfilms_MouseDoubleClick" BorderBrush="Transparent"  ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectedItem="{Binding selectedFilm}" Background="#3e3740" MinHeight="200"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -101,7 +100,7 @@
 
                             </ListBox>
                             <!--listbox suggested films -->
-                            <ListBox ItemTemplate="{StaticResource filmItem}" Background="#3e3740" Height="200" Margin="0,5,0,0"
+                            <ListBox x:Name="SugFilm" MouseDoubleClick="Nfilms_MouseDoubleClick" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding Sugfilms}" SelectedItem="{Binding selectedFilm}"  Background="#3e3740" Height="200" Margin="0,5,0,0"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -138,7 +137,7 @@
             </TabItem >
             <TabItem Visibility="Collapsed">
 
-                <ListBox x:Name="filmlist" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}"  SelectionChanged="filmList_selectionChenged" SelectedItem="{Binding selectedFilm}" >
+                <ListBox x:Name="filmlist"  MouseDoubleClick="Nfilms_MouseDoubleClick" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}" SelectedItem="{Binding selectedFilm}" >
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -156,30 +155,77 @@
             </TabItem>
             <TabItem Visibility="Collapsed">
                 <StackPanel>
-                    <TextBlock TextAlignment="Center">Профиль</TextBlock>
+                    <TextBlock TextAlignment="Center" Text="Профиль"></TextBlock>
                         <StackPanel  Orientation="Horizontal">
                         <Image HorizontalAlignment="Right"  Source="/img_resurs/TVillf.png" Height="50" Margin="200,0,0,0"></Image>
                         <TextBlock x:Name="NameUser" Margin="10,20,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
                         
                         </StackPanel>
-                    <TextBlock  TextAlignment="Center">Почта</TextBlock>
+                    <TextBlock  TextAlignment="Center" Text="Почта"></TextBlock>
                     
                 </StackPanel>
             </TabItem>
             <TabItem  Visibility="Collapsed"  >
-                <Grid>
+                <Grid x:Name="film">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" >
-                        <StackPanel x:Name="film"  Margin="20,20,20,20" >
+                        <StackPanel  Margin="20,20,20,20" >
                             <Image d:DataContext="{d:DesignInstance Type=local:film}" Height="100" Source="{Binding poster, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                            <TextBlock d:DataContext="{d:DesignInstance Type=local:film}" Height="20" Foreground="White" Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                            
                         </StackPanel>
-
                     </StackPanel>
-                    
+                    <StackPanel  Grid.Column="1">
+                        <StackPanel  Margin="20,20,20,20">
+                            
+                            <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}" Height="20" Foreground="White" Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Год создания: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding year, UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Страна: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding country, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Жанр: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding stile, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Релиз: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding date, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Время: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding time, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Бюджет: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding budget, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Возраст: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding rating, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Line X1="300"  Stroke="White"></Line>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Компания: "   />
+                                <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding company, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
+                    </StackPanel>
+ 
                 </Grid>
             </TabItem>
         </TabControl>

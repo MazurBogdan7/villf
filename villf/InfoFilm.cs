@@ -4,30 +4,20 @@ using System.Text;
 
 namespace villf
 {
+    
     public class film : baseVM
     {
         private string _name;
         private byte[] _poster;
-        /*public string name
-        {
-            get => _name;
-            set
-            {
-
-                _name = value;
-                OnPropertyChanged(nameof(name));
-            }
-        }
-        public byte[] poster
-        {
-            get => _poster;
-            set
-            {
-
-                _poster = value;
-                OnPropertyChanged(nameof(poster));
-            }
-        }*/
+        private int _year;
+        private float _estimation;
+        private string _country;
+        private string _stile;
+        private string _date;
+        private string _time;
+        private int _budget;
+        private string _rating;
+        private string _company;
         public string name 
         {
             get => _name;
@@ -38,7 +28,7 @@ namespace villf
                 OnPropertyChanged(nameof(name));
             }
 
-        }
+        } 
         public byte[] poster 
         {
             get => _poster;
@@ -50,10 +40,122 @@ namespace villf
             }
 
         }
-        public film(string Name, byte[] Poster)
+        public int year
+        {
+            get => _year;
+            set
+            {
+
+                _year = value;
+                OnPropertyChanged(nameof(year));
+            }
+
+        }
+        public float estimation
+        {
+            get => _estimation;
+            set
+            {
+
+                _estimation = value;
+                OnPropertyChanged(nameof(estimation));
+            }
+
+        }
+
+        public string country
+        {
+            get => _country;
+            set
+            {
+
+                _country = value;
+                OnPropertyChanged(nameof(country));
+            }
+
+        }
+
+        public string stile
+        {
+            get => _stile;
+            set
+            {
+
+                _stile = value;
+                OnPropertyChanged(nameof(stile));
+            }
+
+        }
+        public string date
+        {
+            get => _date;
+            set
+            {
+
+                _date = value;
+                OnPropertyChanged(nameof(date));
+            }
+
+        }
+        public string time
+        {
+            get => _time;
+            set
+            {
+
+                _time = value;
+                OnPropertyChanged(nameof(time));
+            }
+
+        }
+        public int budget
+        {
+            get => _budget;
+            set
+            {
+
+                _budget = value;
+                OnPropertyChanged(nameof(budget));
+            }
+
+        }
+        public string rating
+        {
+            get => _rating;
+            set
+            {
+
+                _rating = value;
+                OnPropertyChanged(nameof(rating));
+            }
+
+        }
+        public string company
+        {
+            get => _company;
+            set
+            {
+
+                _company = value;
+                OnPropertyChanged(nameof(company));
+            }
+
+        }
+
+        public film(string Name, byte[] Poster,int Year,float Estimation,string Country,string Stile,string Date,string Time,int Budget,string Rating,string Company)
         {
             name = Name;
             poster = Poster;
+            year = Year;
+            estimation = Estimation;
+            country = Country;
+            stile = Stile;
+            date = Date;
+            time = Time;
+            budget = Budget;
+            rating = Rating;
+            company = Company;
+
         }
     }
 }

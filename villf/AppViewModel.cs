@@ -67,14 +67,14 @@ namespace villf
         
 
         
-
+ 
         public void CreateNewWindow()
         {
             MainVillf main = new MainVillf(_login)
-            {
+            { 
                 DataContext = new MainViewModel()
             };
-                main.Show();
+            main.Show();
         }
         
         private void Enter(object parameter)
@@ -82,8 +82,8 @@ namespace villf
             if (Model.EnterUs(_login) == 1)
             {
                 CreateNewWindow();
-                    Application.Current.MainWindow.Close();
-                }
+                Application.Current.MainWindow.Close();
+            }
             else
             {
                 Messeg = "Такого пользователя ненайдено. Попробуйте зарегестрироатся :)";

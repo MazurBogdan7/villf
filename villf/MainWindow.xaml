@@ -9,8 +9,8 @@
         Title="MainWindow"  
         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}"
-        
         >
+
     <Grid x:Name="Enter" ShowGridLines="True" Height="496" Background="#3e3740" Width="1007" >
 
 
@@ -23,7 +23,7 @@
             </i:Interaction.Triggers>
         </TextBlock>
 
-        <TextBlock Margin="324,239,289,230"  TextAlignment="Center" MouseLeftButtonDown="RegistUs" Foreground="White" > Регистрация</TextBlock>
+        <TextBlock Margin="324,239,289,230"  TextAlignment="Center" MouseLeftButtonDown="RegistUs" Foreground="White" Text="Регистрация" > </TextBlock>
         <TextBlock x:Name="messeg" Margin="243,266,208,203"  TextAlignment="Center" Text="{Binding Messeg}" Foreground="White"/>
 
         <TextBox x:Name="login" Margin="307,156,271,316" MaxLength="100" Foreground="White" TextChanged="OnTextBoxTextChanged" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=login, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"   >
@@ -40,7 +40,6 @@
         <StackPanel Margin="226,52,191,363">
             <Image Source="/img_resurs/TVillf.png" Height="82" Width="591"/>
         </StackPanel>
-
 
     </Grid>
 </Window>

@@ -14,10 +14,7 @@ namespace villf
         string log;
         public string login { get=>log; set { log = value; } }
 
-        //public class film
-        //{
-            
-        //}
+        
 
         private ObservableCollection<film> _films = new ObservableCollection<film>();
         public ObservableCollection<film> films
@@ -38,6 +35,16 @@ namespace villf
             {
                 _new_films = value;
                 OnPropertyChanged(nameof(new_films));
+            }
+        }
+        private ObservableCollection<film> _Sugfilms = new ObservableCollection<film>();
+        public ObservableCollection<film> Sugfilms
+        {
+            get => _Sugfilms;
+            set
+            {
+                _Sugfilms = value;
+                OnPropertyChanged(nameof(Sugfilms));
             }
         }
         private ObservableCollection<film> _infofilms = new ObservableCollection<film>();
@@ -63,7 +70,8 @@ namespace villf
                 foreach (var entry in filmsNams)
                 {
 
-                    films.Add(new film(entry,posters[i]));
+                    films.Add(new film(entry,posters[i],0,0,"","","","",0,"",""));
+                    i++;
                 }
             }
 
@@ -77,10 +85,28 @@ namespace villf
             foreach (var entry in filmsNams )
             {
 
-                new_films.Add(new film(entry, posters[i]));
+                new_films.Add(new film(entry, posters[i], 0, 0, "", "", "", "", 0, "", ""));
                 i++;
             }
 
+        }
+        public List<object> filmsObj = new List<object>();
+        public void suggestedFilm()
+        {
+            
+            int i = 0;
+            int j = 1;
+            int k = 1;
+            int nfilms;
+            filmsObj = Model.suggestedFilm();
+            nfilms = filmsObj.Count / 2;
+            while (k <= nfilms)
+            {
+                Sugfilms.Add(new film((string)filmsObj[i], (byte[])filmsObj[j], 0, 0, "", "", "", "", 0, "", ""));
+                i += 2;
+                j += 2;
+                k++;
+            }
         }
         private film _selectedFilm;
         public film selectedFilm
@@ -97,10 +123,14 @@ namespace villf
         {
             
             film f = (film)item;
+            if (selectedFilm != f)
+                selectedFilm = f;
             if (f != null)
             {
                 string name_film = f.name;
+                
                 infofilms = Model.GetInfoFilm(name_film);
+               
             }
         }
 
