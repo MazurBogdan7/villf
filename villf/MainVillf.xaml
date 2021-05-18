@@ -228,10 +228,11 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Grid.Column="2">
-                        <StackPanel x:Name="people" Margin="20,20,20,20">
+                        <TextBlock Margin="50,10,0,0">Создатели</TextBlock>
+                        <ListBox x:Name="people" Margin="20,20,20,20" Height="200"    Background="#3e3740" ><!--ItemsSource="{Binding infoCreators}"-->
+                            <TextBlock  d:DataContext="{d:DesignInstance Type=local:creator}" Height="20" Foreground="White" Text="{Binding name}"/>
                             
-                            
-                        </StackPanel>
+                        </ListBox>
                         
                     </StackPanel>
                 </Grid>

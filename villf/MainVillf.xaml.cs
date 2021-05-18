@@ -84,7 +84,7 @@ namespace villf
                 vm.info_film(item.SelectedItem);
                 
                 this.film.DataContext = vm.infofilms;
-                this.people.DataContext = vm.infoCreators;
+               this.people.DataContext = vm.infoCreators;
 
 
 

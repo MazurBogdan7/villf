@@ -134,7 +134,7 @@ namespace villf
                 string name_film = f.name;
                 
                 infofilms = Model.GetInfoFilm(name_film);
-               
+                infoCreators = Model.GetInfoCreators(name_film);
             }
         }
         public void outpInformUser(object parameter)

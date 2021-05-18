@@ -264,7 +264,7 @@ namespace villf
             {
                 while (read.Read())
                 {
-                    string namefilm = read.GetString(0) ?? NthString;
+                    string namefilm = read.GetString(0) ;
                     byte[] poster = (byte[])read.GetValue(1) ?? new byte[] { };
                     int year = (int)read.GetValue(2);
                     string country = read.GetString(3) ?? NthString;
@@ -299,11 +299,35 @@ namespace villf
             return ListInfoFilm;
         }
 
-        //public ObservableCollection<film> GetInfoCreators(string nameFilm)
-        //{
+        public ObservableCollection<creator> GetInfoCreators(string nameFilm)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string get_creators_film = "GetCreatorsFilm";
+            SqlCommand GetcreatorsFilm = new SqlCommand(get_creators_film, connection);
+            GetcreatorsFilm.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter nameP = new SqlParameter
+            {
+                ParameterName = "@nameFilm",
+                Value = nameFilm
 
+            };
+            GetcreatorsFilm.Parameters.Add(nameP);
+            SqlDataReader read = GetcreatorsFilm.ExecuteReader();
+            ObservableCollection<creator> ListCreators = new ObservableCollection<creator>();
 
+            if (read.HasRows)
+            {
+                while (read.Read())
+                {
+                    ListCreators.Add(new creator(read.GetString(0),read.GetString(1), read.GetString(2), read.GetString(3), read.GetString(4)));
 
-        //}
+                }
+            }
+
+            read.Close();
+            connection.Close();
+            return ListCreators;
+        }
     }
 }
