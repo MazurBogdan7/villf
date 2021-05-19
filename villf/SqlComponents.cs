@@ -37,40 +37,40 @@ namespace villf
             read.Close();
             connection.Close();
         }
-        public int NewUser(string name, string pas, string mail) 
+        public int NewUser(string name, string pas, string mail)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             string login = name;
 
-            
+
             if (ChecUser(login) == 1)
             {
                 //this user already exists
                 return 2;
             }
-            else 
+            else
             {
-                
+
 
                 SqlCommand NUser = new SqlCommand("numbUser", connection);
                 NUser.CommandType = System.Data.CommandType.StoredProcedure;
-                
+
                 int id = (Int32)NUser.ExecuteScalar();
-                
-                
+
+
 
                 string password = pas;
                 string SAddU = "INSERT INTO users (numb_user, login , password, mail) VALUES (@numb,@name,@pas,@mail) ";
 
                 SqlCommand AddUser = new SqlCommand(SAddU, connection);
 
-                
-                
+
+
 
                 SqlParameter idP = new SqlParameter("@numb", id);
                 SqlParameter passP = new SqlParameter("@pas", password);
-                SqlParameter loginP = new SqlParameter("@name",login);
+                SqlParameter loginP = new SqlParameter("@name", login);
                 SqlParameter mailP = new SqlParameter("@mail", mail);
 
                 AddUser.Parameters.Add(loginP);
@@ -82,16 +82,16 @@ namespace villf
 
                 if (n <= 0) return 1;
             }
-            
+
 
 
             connection.Close();
-            return 0; 
+            return 0;
             //user added successfully
         }
-        public int EnterUs(string login) 
+        public int EnterUs(string login)
         {
-            
+
             if (ChecUser(login) == 1)
             {
                 //this user already exists
@@ -99,7 +99,7 @@ namespace villf
             }
             else { return 0; }
 
-            
+
         }
         public List<string> ChFilm(string name)
         {
@@ -116,21 +116,21 @@ namespace villf
 
             if (read.HasRows)
             {
-                
-                
+
+
                 string f;
                 while (read.Read())
                 {
-                    
+
                     f = (string)read.GetValue(0);
                     films.Add(f);
 
-                    
+
                 }
-                
-                
+
+
             }
-            
+
             read.Close();
             connection.Close();
             return films;
@@ -140,7 +140,7 @@ namespace villf
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-             
+
             SqlCommand GetPrFilms = new SqlCommand(newfilms, connection);
             SqlDataReader read = GetPrFilms.ExecuteReader();
             List<string> films = new List<string>();
@@ -161,7 +161,7 @@ namespace villf
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            
+
             SqlCommand GetPosterFilms = new SqlCommand(poster_films, connection);
             SqlDataReader read = GetPosterFilms.ExecuteReader();
             List<byte[]> posters = new List<byte[]>();
@@ -196,7 +196,7 @@ namespace villf
                 while (read.Read())
                 {
                     byte[] f = (byte[])read.GetValue(0);
-                    
+
                     posters.Add(f);
                 }
             }
@@ -211,13 +211,13 @@ namespace villf
         }
         public List<byte[]> premiereFilms_img()
         {
-            
+
             string poster_films = "select poster from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
             return getPosterFilm(poster_films);
         }
         public List<object> suggestedFilm()
         {
-            
+
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             string randFilms = "select top 7 name_film, poster from films ORDER BY NEWID()";
@@ -242,6 +242,66 @@ namespace villf
 
         }
 
+        public int newEstim(string login, string nameFilm,int estim)
+        {
+            int error = 0;
+            const int UPDATE_ERR = 1;
+            const int INSERT_ERR = 2;
+
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string checkRev = "checkRev";
+            string insertEst = "neEstim";
+            string updateEst = "updateEstim";
+            SqlCommand checkRevCommand = new SqlCommand(checkRev, connection);
+            checkRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+            SqlParameter loginP = new SqlParameter("@login",login);
+            SqlParameter nameFilmP = new SqlParameter("@nameFilm", nameFilm);
+            SqlParameter estimP = new SqlParameter("@estim",estim);
+
+            checkRevCommand.Parameters.Add(loginP);
+            checkRevCommand.Parameters.Add(nameFilmP);
+
+            SqlDataReader read = checkRevCommand.ExecuteReader();
+            int nRev = 0;
+            if (read.HasRows)
+            {
+                if (read.Read()) nRev = read.GetInt32(0);
+                read.Close();
+                checkRevCommand.Parameters.Clear();
+                SqlCommand updateRevCommand = new SqlCommand(updateEst, connection);
+                updateRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter estmP = new SqlParameter("@estim",nRev);
+
+                updateRevCommand.Parameters.Add(estmP);
+                updateRevCommand.Parameters.Add(loginP);
+                updateRevCommand.Parameters.Add(nameFilmP);
+                updateRevCommand.Parameters.Add(estimP);
+
+                // error = UPDATE_ERR;
+
+            }
+            else
+            {
+                read.Close();
+                checkRevCommand.Parameters.Clear();
+                SqlCommand newRevCommand = new SqlCommand(insertEst, connection);
+                newRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                newRevCommand.Parameters.Add(loginP);
+                newRevCommand.Parameters.Add(nameFilmP);
+                newRevCommand.Parameters.Add(estimP);
+
+               
+                // error = INSERT_ERR;
+            }
+
+            read.Close();
+            connection.Close();
+            return error;
+        }
 
         public ObservableCollection<film> GetInfoFilm(string nameFilm) 
         {
@@ -315,12 +375,13 @@ namespace villf
             GetcreatorsFilm.Parameters.Add(nameP);
             SqlDataReader read = GetcreatorsFilm.ExecuteReader();
             ObservableCollection<creator> ListCreators = new ObservableCollection<creator>();
-
+            string NthString = "";
             if (read.HasRows)
             {
                 while (read.Read())
                 {
-                    ListCreators.Add(new creator(read.GetString(0),read.GetString(1), read.GetString(2), read.GetString(3), read.GetString(4)));
+                    string lastname = read.GetValue(4) == DBNull.Value ? NthString : (string)read.GetValue(4);
+                    ListCreators.Add(new creator(read.GetString(0),read.GetString(1), read.GetString(2), read.GetString(3), lastname));
 
                 }
             }

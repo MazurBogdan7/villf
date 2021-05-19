@@ -19,9 +19,9 @@ namespace villf
         void Tabcontrol(int n)
         {
 
-            menuTab.SelectedIndex = n-1;
+            menuTab.SelectedIndex = n - 1;
             newIndex = menuTab.SelectedIndex;
-           
+
         }
         private MainViewModel vm;
         public MainVillf(string login)
@@ -34,15 +34,16 @@ namespace villf
             vm.suggestedFilm();
             this.SugFilm.DataContext = vm;
             this.DataContext = new MainViewModel();
-            
-            NameUser.Text = login;
 
-            
+            NameUser.Text = login;
+            this.NameUser.DataContext = vm;
+
+
         }
         void TBchangSearch(object sender, TextChangedEventArgs e)
         {
-            vm = new MainViewModel();   
-            
+            vm = new MainViewModel();
+
             if (search.Text == "")
             {
 
@@ -61,7 +62,7 @@ namespace villf
 
             else
             {
-                search.Background = null; 
+                search.Background = null;
 
                 Tabcontrol(2);
 
@@ -82,10 +83,10 @@ namespace villf
                 Tabcontrol(4);
 
                 vm.info_film(item.SelectedItem);
-                
-                this.film.DataContext = vm.infofilms;
-               this.people.DataContext = vm.infoCreators;
 
+                this.film.DataContext = vm.infofilms;
+                this.people.DataContext = vm;
+                this.points.DataContext = vm;
 
 
             }
@@ -95,6 +96,7 @@ namespace villf
             Tabcontrol(3);
 
         }
+       
 
     }
 }

@@ -11,8 +11,17 @@ namespace villf
     {
         static SqlComponents Model = new SqlComponents();
 
-        string log;
-        public string login { get=>log; set { log = value; } }
+        private string _login;
+        public string login 
+        {
+            get => _login;
+            set
+            {
+                _login = value;
+                OnPropertyChanged(nameof(login));
+            }
+
+        }
 
         
 
@@ -124,6 +133,15 @@ namespace villf
                 OnPropertyChanged(nameof(selectedFilm));
             }
         }
+
+        public void newEstimation(object namber)
+        {
+            Model.newEstim(login, selectedFilm.name, Convert.ToInt32(namber));
+        
+        }
+        private ICommand _newEst;
+        public ICommand newEst => _newEst ?? (_newEst = new RelayCommand(newEstimation));
+
         public void info_film(object item) 
         {
             film f = (film)item;

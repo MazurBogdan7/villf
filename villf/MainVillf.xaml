@@ -38,7 +38,20 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="humanItem">
+            <Grid>
+                <StackPanel >
+                    <TextBlock Height="20"  Foreground="White" Text="{Binding Path=profession}"/>
+                    <TextBlock Height="20"  Foreground="White" Text="{Binding Path=name}"/>
+
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
+            
+        
     </Window.Resources>
+    
     <Grid Background="#3e3740" Margin="0,0,0,-5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*" />
@@ -176,7 +189,26 @@
                     <StackPanel Grid.Column="0" >
                         <StackPanel  Margin="20,20,20,20" >
                             <Image d:DataContext="{d:DesignInstance Type=local:film}" Height="100" Source="{Binding poster, UpdateSourceTrigger=PropertyChanged}" Width="100" />
-                            
+                            <TextBlock Text="Оценка фильма:"/>
+                            <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}" Height="20" FontSize="20" Foreground="White" Text="{Binding estimation, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Height="20" Margin="0,10,0,0" Foreground="White" Text="Ваша оценка:"></TextBlock>
+                            <StackPanel x:Name="points" Orientation="Horizontal">
+                                <Button x:Name="b1" Content="1" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b1}"></Button>
+                                <Button x:Name="b2" Content="2" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b2}"></Button>
+                                <Button x:Name="b3" Content="3" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b3}"></Button>
+                                <Button x:Name="b4" Content="4" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b4}"></Button>
+                                <Button x:Name="b5" Content="5" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b5}"></Button>
+                                <Button x:Name="b6" Content="6" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b6}"></Button>
+                                <Button x:Name="b7" Content="7" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b7}"></Button>
+                                <Button x:Name="b8" Content="8" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b8}"></Button>
+                                <Button x:Name="b9" Content="9" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b9}"></Button>
+                                <Button x:Name="b10" Content="10" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b10}"></Button>
+                                
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Height="20" Foreground="White" Text="Ваша текущая оценка:"></TextBlock>
+                                
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Grid.Column="1">
@@ -229,9 +261,21 @@
                     </StackPanel>
                     <StackPanel  Grid.Column="2">
                         <TextBlock Margin="50,10,0,0">Создатели</TextBlock>
-                        <ListBox x:Name="people" Margin="20,20,20,20" Height="200"    Background="#3e3740" ><!--ItemsSource="{Binding infoCreators}"-->
-                            <TextBlock  d:DataContext="{d:DesignInstance Type=local:creator}" Height="20" Foreground="White" Text="{Binding name}"/>
-                            
+                        <ListBox x:Name="people" Margin="20,20,20,20" Height="200" ItemTemplate="{StaticResource humanItem}" ItemsSource="{Binding infoCreators}" Background="#3e3740" 
+                                 ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style>
+
+                                    <Setter Property="ListBoxItem.Margin" Value="5"/>
+                                    <Setter Property="ListBoxItem.Padding" Value="5"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
                         </ListBox>
                         
                     </StackPanel>
