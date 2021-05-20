@@ -66,7 +66,6 @@
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Button  Content="Профиль" Command="{Binding Path=output}" Click="TabUser"/>
-            <Button  Content="Избранное" />
             <Button  Content="Ваши Оценки"  />
         </StackPanel>
         
@@ -167,16 +166,16 @@
 
             </TabItem>
             <TabItem Visibility="Collapsed">
-                <StackPanel>
+                <StackPanel >
                     <TextBlock TextAlignment="Center" Text="Профиль"></TextBlock>
                         <StackPanel  Orientation="Horizontal">
                         <Image HorizontalAlignment="Right"  Height="50" Margin="200,0,0,0"></Image>
                         <TextBlock x:Name="NameUser" Margin="10,20,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
                         
                         </StackPanel>
-                    <TextBlock  TextAlignment="Center" Text=""></TextBlock>
-                    <!--<TextBlock Text="{}"> </TextBlock>-->
-                    
+                    <TextBlock  TextAlignment="Center" Text="Почта"></TextBlock>
+                    <TextBlock x:Name="mailUs" Text="{Binding mail}"></TextBlock>
+
                 </StackPanel>
             </TabItem>
             <TabItem  Visibility="Collapsed"  >
@@ -188,9 +187,9 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" >
                         <StackPanel  Margin="20,20,20,20" >
-                            <Image x:Name="EstimFilm" Height="100" Source="{Binding poster, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                            <Image d:DataContext="{d:DesignInstance Type=local:film}" Height="100" Source="{Binding poster, UpdateSourceTrigger=PropertyChanged}" Width="100" />
                             <TextBlock Text="Оценка фильма:"/>
-                            <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}" Height="30" FontSize="20" Foreground="White" Text="{Binding estimation, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock d:DataContext="{d:DesignInstance Type=local:film}"  Height="30" FontSize="20" Foreground="White" Text="{Binding estimation}"/>
                             <TextBlock Height="20" Margin="0,10,0,0" Foreground="White" Text="Ваша оценка:"></TextBlock>
                             <StackPanel x:Name="points" Orientation="Horizontal">
                                 <Button x:Name="b1" Content="1" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b1}"></Button>

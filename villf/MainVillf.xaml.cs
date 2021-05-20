@@ -37,6 +37,9 @@ namespace villf
 
             NameUser.Text = login;
             this.NameUser.DataContext = vm;
+            this.mailUs.DataContext = vm;
+
+
 
 
         }
@@ -90,7 +93,7 @@ namespace villf
                 this.people.DataContext = vm;
                 this.points.DataContext = vm;
                 this.UserPoint.DataContext = vm;
-                this.EstimFilm.DataContext = vm.selectedFilm;
+               
 
             }
         }

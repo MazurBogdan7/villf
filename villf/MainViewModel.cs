@@ -22,8 +22,18 @@ namespace villf
             }
 
         }
+        private string _mail;
+        public string mail
+        {
+            get => _mail;
+            set
+            {
+                _mail = value;
+                OnPropertyChanged(nameof(mail));
+            }
 
-        
+        }
+
 
         private ObservableCollection<film> _films = new ObservableCollection<film>();
         public ObservableCollection<film> films
@@ -153,7 +163,7 @@ namespace villf
         {
             int[] resEstim = new int[2];
             Model.newEstim(login, selectedFilm.name, Convert.ToInt32(namber));
-            selectedFilm.estimation = Model.UpdateFilmEstim(selectedFilm.name);
+            Model.UpdateFilmEstim(selectedFilm.name);
             resEstim = Model.checkRev(login, selectedFilm.name);
             userEstim = resEstim[1];
         }
@@ -178,7 +188,8 @@ namespace villf
         }
         public void outpInformUser(object parameter)
         {
-                
+            if (login != null)
+            mail = Model.GetMailUser(login);
 
         }
 

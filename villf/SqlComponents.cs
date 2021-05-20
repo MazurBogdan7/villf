@@ -103,6 +103,24 @@ namespace villf
 
 
         }
+        public string GetMailUser(string nameUser)
+        {
+            string mail = "";
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string user = "SELECT mail FROM users WHERE login = @name";
+            SqlCommand SearchM = new SqlCommand(user, connection);
+            SqlParameter nameP = new SqlParameter("@name", nameUser);
+            SearchM.Parameters.Add(nameP);
+            SqlDataReader read = SearchM.ExecuteReader();
+            if (read.HasRows)
+            {
+                if (read.Read()) mail = read.GetString(0);
+            }
+            read.Close();
+            connection.Close();
+            return mail;
+        }
         public List<string> ChFilm(string name)
         {
 
