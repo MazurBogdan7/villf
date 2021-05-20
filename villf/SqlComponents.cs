@@ -242,6 +242,47 @@ namespace villf
 
         }
 
+        public int[] checkRevCommand(string login, string nameFilm)
+        {
+            int[] nRev_est = new int[2];
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string checkRev = "checkRev";
+
+            SqlCommand checkRevCommand = new SqlCommand(checkRev, connection);
+            checkRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter loginP = new SqlParameter
+            {
+                ParameterName = "@login",
+                Value = login
+
+            };
+            SqlParameter nameFilmP = new SqlParameter
+            {
+                ParameterName = "@nameFilm",
+                Value = nameFilm
+
+            };
+
+            checkRevCommand.Parameters.Add(loginP);
+            checkRevCommand.Parameters.Add(nameFilmP);
+            SqlDataReader read = checkRevCommand.ExecuteReader();
+            
+            if (read.HasRows)
+            {
+                if (read.Read())
+                {
+                  nRev_est[0] = read.GetInt32(0); // 0 - review number
+                  nRev_est[1] = read.GetInt32(3); // 1 - estimation in review
+                }
+            }
+            else
+
+
+            read.Close();
+            connection.Close();
+            return nRev_est;
+        }
         public int newEstim(string login, string nameFilm,int estim)
         {
             int error = 0;
@@ -250,43 +291,63 @@ namespace villf
 
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
-            string checkRev = "checkRev";
+            
             string insertEst = "neEstim";
             string updateEst = "updateEstim";
-            SqlCommand checkRevCommand = new SqlCommand(checkRev, connection);
-            checkRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            
 
-            SqlParameter loginP = new SqlParameter("@login",login);
-            SqlParameter nameFilmP = new SqlParameter("@nameFilm", nameFilm);
-            SqlParameter estimP = new SqlParameter("@estim",estim);
-
-            checkRevCommand.Parameters.Add(loginP);
-            checkRevCommand.Parameters.Add(nameFilmP);
-
-            SqlDataReader read = checkRevCommand.ExecuteReader();
-            int nRev = 0;
-            if (read.HasRows)
+            SqlParameter loginP = new SqlParameter
             {
-                if (read.Read()) nRev = read.GetInt32(0);
-                read.Close();
-                checkRevCommand.Parameters.Clear();
+                ParameterName = "@login",
+                Value = login
+
+            };    
+            SqlParameter nameFilmP = new SqlParameter
+            {
+                ParameterName = "@nameFilm",
+                Value = nameFilm
+
+            };      
+            SqlParameter estimP = new SqlParameter
+            {
+                ParameterName = "@estim",
+                Value = estim
+
+            };
+
+            int[] nRev_est = checkRevCommand(login,nameFilm);
+
+
+
+            int nRev = nRev_est[0];
+            
+            if (nRev != 0)
+            {
+                
                 SqlCommand updateRevCommand = new SqlCommand(updateEst, connection);
                 updateRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                SqlParameter estmP = new SqlParameter("@estim",nRev);
+                SqlParameter estmP = new SqlParameter
+                {
+                    ParameterName = "@numbRev",
+                    Value = nRev
+
+                };
+                
 
                 updateRevCommand.Parameters.Add(estmP);
                 updateRevCommand.Parameters.Add(loginP);
                 updateRevCommand.Parameters.Add(nameFilmP);
                 updateRevCommand.Parameters.Add(estimP);
-
-                // error = UPDATE_ERR;
+                
+                //error update
+                if (updateRevCommand.ExecuteNonQuery() == 0) error = UPDATE_ERR;
+                
 
             }
             else
             {
-                read.Close();
-                checkRevCommand.Parameters.Clear();
+                
                 SqlCommand newRevCommand = new SqlCommand(insertEst, connection);
                 newRevCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -294,11 +355,13 @@ namespace villf
                 newRevCommand.Parameters.Add(nameFilmP);
                 newRevCommand.Parameters.Add(estimP);
 
+                //error insert 
+                if(newRevCommand.ExecuteNonQuery() == 0) error = INSERT_ERR;
                
-                // error = INSERT_ERR;
+               
             }
 
-            read.Close();
+            
             connection.Close();
             return error;
         }
