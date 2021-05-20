@@ -18,7 +18,7 @@ namespace villf
             set
             {
                 _login = value;
-                OnPropertyChanged(nameof(login));
+                
             }
 
         }
@@ -90,6 +90,10 @@ namespace villf
                     i++;
                 }
             }
+        }
+        public void cleaningSearch()
+        {
+            films.Clear();
         }
         public void prpremiere_films() 
         {

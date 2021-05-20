@@ -42,7 +42,7 @@ namespace villf
         }
         void TBchangSearch(object sender, TextChangedEventArgs e)
         {
-            vm = new MainViewModel();
+           vm.cleaningSearch();
 
             if (search.Text == "")
             {
@@ -58,6 +58,7 @@ namespace villf
                 search.Background = textImageBrush;
 
                 Tabcontrol(1);
+                
             }
 
             else
@@ -67,6 +68,7 @@ namespace villf
                 Tabcontrol(2);
 
                 vm.checkFilm(search.Text);
+
                 this.filmlist.DataContext = vm;
             }
         }
