@@ -133,26 +133,42 @@ namespace villf
                 OnPropertyChanged(nameof(selectedFilm));
             }
         }
+        private int _userEstim;
+        public int userEstim
+        {
+            get => _userEstim;
+            set
+            {
+
+                _userEstim = value;
+                OnPropertyChanged(nameof(userEstim));
+            }
+        }
 
         public void newEstimation(object namber)
         {
+            int[] resEstim = new int[2];
             Model.newEstim(login, selectedFilm.name, Convert.ToInt32(namber));
-        
+            resEstim = Model.checkRev(login, selectedFilm.name);
+            userEstim = resEstim[1];
         }
         private ICommand _newEst;
         public ICommand newEst => _newEst ?? (_newEst = new RelayCommand(newEstimation));
 
         public void info_film(object item) 
         {
+            int[] resEstim = new int[2];
             film f = (film)item;
-            if (selectedFilm != f)
-                selectedFilm = f;
+            //if (selectedFilm != f)
+             //   selectedFilm = f;
             if (f != null)
             {
                 string name_film = f.name;
                 
                 infofilms = Model.GetInfoFilm(name_film);
                 infoCreators = Model.GetInfoCreators(name_film);
+                resEstim = Model.checkRev(login, selectedFilm.name);
+                userEstim = resEstim[1];
             }
         }
         public void outpInformUser(object parameter)

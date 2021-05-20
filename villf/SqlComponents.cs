@@ -242,7 +242,7 @@ namespace villf
 
         }
 
-        public int[] checkRevCommand(string login, string nameFilm)
+        public int[] checkRev(string login, string nameFilm)
         {
             int[] nRev_est = new int[2];
             SqlConnection connection = new SqlConnection(connectionString);
@@ -315,7 +315,7 @@ namespace villf
 
             };
 
-            int[] nRev_est = checkRevCommand(login,nameFilm);
+            int[] nRev_est = checkRev(login,nameFilm);
 
 
 

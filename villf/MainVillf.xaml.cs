@@ -87,7 +87,7 @@ namespace villf
                 this.film.DataContext = vm.infofilms;
                 this.people.DataContext = vm;
                 this.points.DataContext = vm;
-
+                this.UserPoint.DataContext = vm;
 
             }
         }
