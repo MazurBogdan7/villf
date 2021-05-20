@@ -16,6 +16,7 @@ namespace villf
             while (i < count)
             {
                 sum = sum + listEstim[i];
+                i++;
             }
             estimation = sum / count;
 

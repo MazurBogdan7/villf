@@ -128,7 +128,7 @@ namespace villf
         
         private void Enter(object parameter)
         {
-            if (Model.EnterUs(_login) == 1)
+            if (Model.EnterUs(_login, _pasw) == 1)
             {
                 CreateNewWindow();
                 Application.Current.MainWindow.Close();

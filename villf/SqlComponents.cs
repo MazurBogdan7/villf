@@ -13,15 +13,17 @@ namespace villf
         string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=films;Integrated Security=True";
 
         //the mettod check if such a user
-        public int ChecUser(string login)
+        public int ChecUser(string login, string pasword)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
-            string S_user = "SELECT login FROM users WHERE login = @name";
+            string S_user = "SELECT login FROM users WHERE login = @name and password = @pas";
             SqlCommand SearchU = new SqlCommand(S_user, connection);
             SqlParameter nameP = new SqlParameter("@name", login);
+            SqlParameter pasP = new SqlParameter("@pas", pasword);
             SearchU.Parameters.Add(nameP);
+            SearchU.Parameters.Add(pasP);
             SqlDataReader read = SearchU.ExecuteReader();
             if (read.HasRows)
             {
@@ -44,7 +46,7 @@ namespace villf
             string login = name;
 
 
-            if (ChecUser(login) == 1)
+            if (ChecUser(login,pas) == 1)
             {
                 //this user already exists
                 return 2;
@@ -89,10 +91,10 @@ namespace villf
             return 0;
             //user added successfully
         }
-        public int EnterUs(string login)
+        public int EnterUs(string login,string pas)
         {
 
-            if (ChecUser(login) == 1)
+            if (ChecUser(login, pas) == 1)
             {
                 //this user already exists
                 return 1;
@@ -367,7 +369,7 @@ namespace villf
         }
         public float UpdateFilmEstim(string nameFilm) 
         {
-            float estimation;
+            float estimation = 0;
             int error;
             const int UPDATE_ERR = 1; 
             List<int> usersEstimations = new List<int>();
@@ -389,7 +391,10 @@ namespace villf
             }
             read.Close();
             GetEstimFilm.Parameters.Clear();
+
+            if (usersEstimations.Count != 0)
             estimation = numerical_methods.average_rating(usersEstimations, usersEstimations.Count);
+
             SqlCommand setEstim = new SqlCommand(SetFilmEstimation,connection);
             setEstim.CommandType = System.Data.CommandType.StoredProcedure;
             SqlParameter estimFilm = new SqlParameter("@estim", estimation);
@@ -435,7 +440,7 @@ namespace villf
                     string time = Convert.ToString(read.GetValue(7)) ?? NthString;
                     string MPAA_rating = read.GetString(8) ?? NthString;
                     string rus_rating = read.GetString(9) ?? NthString;
-                    float estimation = read.GetValue(10) == DBNull.Value ? 0: (float)read.GetValue(10);
+                    float estimation = read.GetValue(10) == DBNull.Value ? 0: (float)Convert.ToDouble(read.GetValue(10));
                     string company = read.GetString(11) ?? NthString;
 
                     ListInfoFilm.Add(new film
