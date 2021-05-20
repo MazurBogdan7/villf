@@ -365,7 +365,45 @@ namespace villf
             connection.Close();
             return error;
         }
+        public float UpdateFilmEstim(string nameFilm) 
+        {
+            float estimation;
+            int error;
+            const int UPDATE_ERR = 1; 
+            List<int> usersEstimations = new List<int>();
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string GetEstimations = "GetEstimationsFilm";
+            string SetFilmEstimation = "newFilmEstim";
+            SqlCommand GetEstimFilm = new SqlCommand(GetEstimations, connection);
+            GetEstimFilm.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter nameFilmP = new SqlParameter("@nameFilm", nameFilm);
+            GetEstimFilm.Parameters.Add(nameFilmP);
+            SqlDataReader read = GetEstimFilm.ExecuteReader();
+            if (read.HasRows) 
+            {
+                while (read.Read()) 
+                {
+                    usersEstimations.Add(read.GetInt32(0));
+                }
+            }
+            read.Close();
+            GetEstimFilm.Parameters.Clear();
+            estimation = numerical_methods.average_rating(usersEstimations, usersEstimations.Count);
+            SqlCommand setEstim = new SqlCommand(SetFilmEstimation,connection);
+            setEstim.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter estimFilm = new SqlParameter("@estim", estimation);
+            setEstim.Parameters.Add(estimFilm);
+            setEstim.Parameters.Add(nameFilmP);
+            if (setEstim.ExecuteNonQuery() == 0) error = UPDATE_ERR ;
 
+
+
+
+
+            connection.Close();
+            return estimation;
+        }
         public ObservableCollection<film> GetInfoFilm(string nameFilm) 
         {
             SqlConnection connection = new SqlConnection(connectionString);

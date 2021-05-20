@@ -153,6 +153,7 @@ namespace villf
         {
             int[] resEstim = new int[2];
             Model.newEstim(login, selectedFilm.name, Convert.ToInt32(namber));
+            selectedFilm.estimation = Model.UpdateFilmEstim(selectedFilm.name);
             resEstim = Model.checkRev(login, selectedFilm.name);
             userEstim = resEstim[1];
         }
@@ -163,14 +164,14 @@ namespace villf
         {
             int[] resEstim = new int[2];
             film f = (film)item;
-            //if (selectedFilm != f)
-             //   selectedFilm = f;
+            
             if (f != null)
             {
                 string name_film = f.name;
                 
                 infofilms = Model.GetInfoFilm(name_film);
                 infoCreators = Model.GetInfoCreators(name_film);
+                
                 resEstim = Model.checkRev(login, selectedFilm.name);
                 userEstim = resEstim[1];
             }
