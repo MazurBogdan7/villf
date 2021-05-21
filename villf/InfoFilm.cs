@@ -218,4 +218,36 @@ namespace villf
         }
 
     }
+    public class estimationsUser : baseVM
+    {
+        private string _nameFilm;
+        private int _estimation;
+        public string nameFilm
+        {
+            get => _nameFilm;
+            set
+            {
+
+                _nameFilm = value;
+                OnPropertyChanged(nameof(nameFilm));
+            }
+
+        }
+        public int estimation
+        {
+            get => _estimation;
+            set
+            {
+                _estimation = value;
+                OnPropertyChanged(nameof(estimation));
+            }
+
+        }
+        public estimationsUser(string NameFilm, int Estimation)
+        {
+            nameFilm = NameFilm;
+            estimation = Estimation;
+        }
+
+    }
 }

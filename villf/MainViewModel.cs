@@ -186,14 +186,34 @@ namespace villf
                 userEstim = resEstim[1];
             }
         }
+
+        private ObservableCollection<estimationsUser> _infoEstimations = new ObservableCollection<estimationsUser>();
+        public ObservableCollection<estimationsUser> infoEstimations
+        {
+            get => _infoEstimations;
+            set
+            {
+                _infoEstimations = value;
+                OnPropertyChanged(nameof(infoEstimations));
+            }
+        }
         public void outpInformUser(object parameter)
         {
-            if (login != null)
-            mail = Model.GetMailUser(login);
+            string log = (string)parameter;
+            mail = Model.GetMailUser(log);
 
         }
 
         private ICommand _output;
         public ICommand output => _output ?? (_output = new RelayCommand(outpInformUser));
+
+        public void EstimUser(object parameter)
+        {
+            string log = (string)parameter;
+
+            infoEstimations = Model.GetEstim_User(log);
+        }
+        private ICommand _AllEstim;
+        public ICommand AllEstim => _AllEstim ?? (_AllEstim = new RelayCommand(EstimUser));
     }
 }

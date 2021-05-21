@@ -113,6 +113,7 @@ namespace villf
             SqlParameter nameP = new SqlParameter("@name", nameUser);
             SearchM.Parameters.Add(nameP);
             SqlDataReader read = SearchM.ExecuteReader();
+
             if (read.HasRows)
             {
                 if (read.Read()) mail = read.GetString(0);
@@ -426,6 +427,30 @@ namespace villf
 
             connection.Close();
             return estimation;
+        }
+        public ObservableCollection<estimationsUser> GetEstim_User(string login)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            string EstimsUser = "select reviews.estimation,name_film from reviews join films on reviews.numb_film = films.numb_film join users on reviews.numb_user = users.numb_user where login = @name";
+            SqlCommand GetEstimsUser = new SqlCommand(EstimsUser, connection);
+            SqlParameter nameP = new SqlParameter("@name", login);
+            GetEstimsUser.Parameters.Add(nameP);
+            SqlDataReader read = GetEstimsUser.ExecuteReader();
+            ObservableCollection<estimationsUser> ListEstms = new ObservableCollection<estimationsUser>();
+            if (read.HasRows)
+            { 
+                while (read.Read())
+                {
+                    ListEstms.Add(new estimationsUser(read.GetString(1),read.GetInt32(0)));
+
+                }
+            
+            }
+
+            read.Close();
+            connection.Close();
+            return ListEstms;
         }
         public ObservableCollection<film> GetInfoFilm(string nameFilm) 
         {

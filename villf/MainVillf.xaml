@@ -47,7 +47,16 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
-        
+        <DataTemplate x:Key="EstimItem">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Height="20"  Foreground="White" Text="{Binding Path=nameFilm}"/>
+                    <TextBlock Height="20"  Foreground="White" Margin="10,0,0,0" Text="Ваша оценка:" />
+                    <TextBlock Height="20"  Foreground="White" Text="{Binding Path=estimation}"/>
+
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
             
         
     </Window.Resources>
@@ -65,8 +74,8 @@
             <Image Source="/img_resurs/TVillf.png" Height="50" MouseLeftButtonDown="TabMain"/>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button  Content="Профиль" Command="{Binding Path=output}" Click="TabUser"/>
-            <Button  Content="Ваши Оценки"  />
+            <Button  Content="Профиль" Command="{Binding Path=output}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabUser"/>
+            <Button  Content="Ваши Оценки" Command="{Binding AllEstim}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabEstimations" />
         </StackPanel>
         
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="102,0,0,280" Grid.RowSpan="2" >
@@ -170,11 +179,11 @@
                     <TextBlock TextAlignment="Center" Text="Профиль"></TextBlock>
                         <StackPanel  Orientation="Horizontal">
                         <Image HorizontalAlignment="Right"  Height="50" Margin="200,0,0,0"></Image>
-                        <TextBlock x:Name="NameUser" Margin="10,20,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
+                        <TextBlock x:Name="NameUser" Margin="30,0,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
                         
                         </StackPanel>
                     <TextBlock  TextAlignment="Center" Text="Почта"></TextBlock>
-                    <TextBlock x:Name="mailUs" Text="{Binding mail}"></TextBlock>
+                    <TextBlock Margin="30,0,0,0" Text="{Binding mail}"></TextBlock>
 
                 </StackPanel>
             </TabItem>
@@ -279,6 +288,12 @@
                         
                     </StackPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Visibility="Collapsed">
+                <ListBox x:Name="EstimUserfilms" ItemTemplate="{StaticResource EstimItem}" ItemsSource="{Binding infoEstimations}" SelectedItem="{Binding selectedFilm}"  Background="#3e3740" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    
+
+                </ListBox>
             </TabItem>
         </TabControl>
 

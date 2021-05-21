@@ -37,7 +37,7 @@ namespace villf
 
             NameUser.Text = login;
             this.NameUser.DataContext = vm;
-            this.mailUs.DataContext = vm;
+            
 
 
 
@@ -102,7 +102,10 @@ namespace villf
             Tabcontrol(3);
 
         }
-       
+        public void TabEstimations(object sender, RoutedEventArgs e)
+        {
+            Tabcontrol(5);
+        }
 
     }
 }
