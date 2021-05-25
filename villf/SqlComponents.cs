@@ -236,7 +236,7 @@ namespace villf
             string poster_films = "select poster from films where MONTH(premiere_date) = MONTH(getdate()) and YEAR(premiere_date) = YEAR(GETDATE())";
             return getPosterFilm(poster_films);
         }
-        public List<object> suggestedFilm()
+        public List<object> suggestedFilm_rand()
         {
 
             SqlConnection connection = new SqlConnection(connectionString);
@@ -261,6 +261,62 @@ namespace villf
             connection.Close();
             return films;
 
+        }
+        public List<object> suggestedFilm(string login)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            List<object> films = new List<object>();
+            string checkTopFilmUser = "TopRandFilmUser";
+            string suggestedfilms = "suggestedFilmsUser";
+            SqlCommand TopFilmCommand = new SqlCommand(checkTopFilmUser, connection);
+            TopFilmCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter loginP = new SqlParameter
+            {
+                ParameterName = "@login",
+                Value = login
+
+            };
+            TopFilmCommand.Parameters.Add(loginP);
+            SqlDataReader read = TopFilmCommand.ExecuteReader();
+            string nameTopFilm = "";
+            if (read.HasRows) 
+            {
+                if (read.Read())
+                {
+                    nameTopFilm = read.GetString(0);
+                    
+                }
+            }
+            read.Close();
+            TopFilmCommand.Parameters.Clear();
+            SqlCommand TopSuggestedFilm = new SqlCommand(suggestedfilms, connection);
+            TopSuggestedFilm.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter nameFilmP = new SqlParameter
+            {
+                ParameterName = "@nameFilm",
+                Value = nameTopFilm
+
+            };
+            TopSuggestedFilm.Parameters.Add(loginP);
+            TopSuggestedFilm.Parameters.Add(nameFilmP);
+            read = TopSuggestedFilm.ExecuteReader();
+            if (read.HasRows)
+            {
+                string f;
+                byte[] p;
+                while (read.Read())
+                {
+                    f = (string)read.GetValue(0);
+                    p = (byte[])read.GetValue(1);
+                    films.Add(f);
+                    films.Add(p);
+                }
+            }
+            read.Close();
+
+            connection.Close();
+            return films;
         }
 
         public int[] checkRev(string login, string nameFilm)

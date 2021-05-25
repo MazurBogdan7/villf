@@ -119,14 +119,24 @@ namespace villf
 
         }
         public List<object> filmsObj = new List<object>();
-        public void suggestedFilm()
+        public void suggestedFilm(string login)
         {
-            
+            ObservableCollection<estimationsUser> check = new ObservableCollection<estimationsUser>();
             int i = 0;
             int j = 1;
             int k = 1;
             int nfilms;
-            filmsObj = Model.suggestedFilm();
+            check = Model.GetEstim_User(login);
+
+            if (check.Count == 0)
+            {
+                filmsObj = Model.suggestedFilm_rand();
+            }
+            else
+            {
+                filmsObj = Model.suggestedFilm(login);
+            }
+            if (filmsObj.Count == 0) filmsObj = Model.suggestedFilm_rand();
             nfilms = filmsObj.Count / 2;
             while (k <= nfilms)
             {

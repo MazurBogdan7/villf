@@ -8,8 +8,8 @@
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="MainVillf"
-        Height="{Binding SystemParameters.PrimaryScreenHeight}" 
-        Width="{Binding SystemParameters.PrimaryScreenWidth}" d:DesignWidth="584.293" d:DesignHeight="342.474"
+        Height="622" 
+        Width="1180"
         
         >
     <Window.Resources>
@@ -24,17 +24,17 @@
             <Setter Property="Background" Value="#3e3740" />
         </Style>
         <Style TargetType="TextBlock">
-            
+
             <Setter Property="Foreground" Value="White" />
-            
+
         </Style>
-       
+
         <DataTemplate x:Key="filmItem" >
             <Grid>
                 <StackPanel  Margin="20,20,20,20" >
                     <Image Height="100" Source="{Binding Path=poster}" Width="100" />
                     <TextBlock Height="20" Foreground="White" Text="{Binding Path=name}"/>
-                 
+
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -57,10 +57,10 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
-            
-        
+
+
     </Window.Resources>
-    
+
     <Grid Background="#3e3740" Margin="0,0,0,-5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*" />
@@ -77,20 +77,23 @@
             <Button  Content="Профиль" Command="{Binding Path=output}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabUser"/>
             <Button  Content="Ваши Оценки" Command="{Binding AllEstim}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabEstimations" />
         </StackPanel>
-        
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="102,0,0,280" Grid.RowSpan="2" >
-            <TextBox x:Name="search" Foreground="White" Width="395" Margin="0,10,0,0"  HorizontalScrollBarVisibility="Auto"
+
+        <StackPanel Grid.Row="0" Grid.Column="1" >
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="search" Foreground="White" Margin="10,10,10,0" Width="420" HorizontalScrollBarVisibility="Auto"
                      TextChanged="TBchangSearch"
                       >
-                <TextBox.Background> 
-                    <ImageBrush ImageSource="/img_resurs/SearchW.png" AlignmentX="Left" Stretch="UniformToFill" />
-                </TextBox.Background>
-                
-            </TextBox>
-            <TextBlock Width="445"  />
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/img_resurs/SearchW.png" AlignmentX="Left" Stretch="UniformToFill" />
+                    </TextBox.Background>
+
+                </TextBox>
+                <Button Margin="0,10,30,0" Width="22" Height="20" Content="..." FontSize="15" Click="TabFormatSearch" ></Button>
+            </StackPanel>
+            <TextBlock  Margin="20,5,20,0"  />
         </StackPanel>
-        
-        
+
+
         <TabControl x:Name="menuTab" Grid.Row="1" Background="#3e3740" Grid.Column="1" >
             <TabItem x:Name="mainWind" Visibility="Collapsed" >
 
@@ -101,9 +104,9 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
-                    <StackPanel x:Name="stack" Grid.Row="1" >
-                        <!--listbox new films -->
+
+                        <StackPanel x:Name="stack" Grid.Row="1" >
+                            <!--listbox new films -->
                             <ListBox x:Name="Nfilms" MouseDoubleClick="Nfilms_MouseDoubleClick" BorderBrush="Transparent"  ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding new_films}" SelectedItem="{Binding selectedFilm}" Background="#3e3740" MinHeight="200"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
@@ -135,9 +138,9 @@
                                         <Setter Property="ListBoxItem.Padding" Value="5"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                        </ListBox>
+                            </ListBox>
                             <!--listbox with filters by genres-->
-                            <ListBox  Background="#3e3740" Height="200" Margin="0,5,0,0"
+                            <ListBox  Background="#3e3740" Height="200" Margin="0,5,0,0" 
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -151,8 +154,8 @@
                                         <Setter Property="ListBoxItem.Padding" Value="5"/>
                                     </Style>
                                 </ListBox.ItemContainerStyle>
-                        </ListBox>
-                    </StackPanel>
+                            </ListBox>
+                        </StackPanel>
                     </Grid>
                 </ScrollViewer>
             </TabItem >
@@ -166,7 +169,7 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemContainerStyle>
                         <Style>
-                            
+
                             <Setter Property="ListBoxItem.Margin" Value="5"/>
                             <Setter Property="ListBoxItem.Padding" Value="5"/>
                         </Style>
@@ -177,11 +180,11 @@
             <TabItem Visibility="Collapsed">
                 <StackPanel >
                     <TextBlock TextAlignment="Center" Text="Профиль"></TextBlock>
-                        <StackPanel  Orientation="Horizontal">
+                    <StackPanel  Orientation="Horizontal">
                         <Image HorizontalAlignment="Right"  Height="50" Margin="200,0,0,0"></Image>
                         <TextBlock x:Name="NameUser" Margin="30,0,0,0" Text="{Binding login, Mode=OneWayToSource}" ></TextBlock>
-                        
-                        </StackPanel>
+
+                    </StackPanel>
                     <TextBlock  TextAlignment="Center" Text="Почта"></TextBlock>
                     <TextBlock Margin="30,0,0,0" Text="{Binding mail}"></TextBlock>
 
@@ -211,7 +214,7 @@
                                 <Button x:Name="b8" Content="8" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b8}"></Button>
                                 <Button x:Name="b9" Content="9" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b9}"></Button>
                                 <Button x:Name="b10" Content="10" Command="{Binding newEst}" CommandParameter="{Binding Content, ElementName= b10}"></Button>
-                                
+
                             </StackPanel>
                             <StackPanel x:Name="UserPoint" Orientation="Horizontal">
                                 <TextBlock Height="20" Foreground="White" Text="Ваша текущая оценка:"></TextBlock>
@@ -221,13 +224,13 @@
                     </StackPanel>
                     <StackPanel  Grid.Column="1">
                         <StackPanel  Margin="20,20,20,20">
-                            
+
                             <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}" Height="20" Foreground="White" Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
                             <Line X1="300"  Stroke="White"></Line>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Height="20" Foreground="White" Text="Год создания: "   />
                                 <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding year, UpdateSourceTrigger=PropertyChanged}"/>
-                            
+
                             </StackPanel>
                             <Line X1="300"  Stroke="White"></Line>
                             <StackPanel Orientation="Horizontal">
@@ -264,7 +267,7 @@
                                 <TextBlock Height="20" Foreground="White" Text="Компания: "   />
                                 <TextBlock  d:DataContext="{d:DesignInstance Type=local:film}"  Height="20" Foreground="White" Text="{Binding company, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
-                            
+
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Grid.Column="2">
@@ -285,15 +288,74 @@
                             </ListBox.ItemContainerStyle>
 
                         </ListBox>
-                        
+
                     </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Visibility="Collapsed">
                 <ListBox x:Name="EstimUserfilms" ItemTemplate="{StaticResource EstimItem}" ItemsSource="{Binding infoEstimations}" SelectedItem="{Binding selectedFilm}"  Background="#3e3740" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    
+
 
                 </ListBox>
+            </TabItem>
+            <TabItem Visibility="Collapsed">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Год премьеры:"/>
+                                <TextBox Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Месяц премьеры:"/>
+                                <TextBox Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Страна:"/>
+                                <TextBox Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Возростной рейтинг:"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="0+"/>
+                                <!--Checked="RadioButtonAgeChecked"-->
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="6+"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="12+"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="16+"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="18+"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Длительность:"/>
+                                <TextBox Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Оценка фильма:"/>
+                                <TextBox Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Название фильма:"/>
+                                <TextBox Margin="10,10,0,0" Width="400"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+                    <ListBox x:Name="formatSearch"  MouseDoubleClick="Nfilms_MouseDoubleClick" BorderBrush="Transparent" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Background="#3e3740" ItemTemplate="{StaticResource filmItem}" ItemsSource="{Binding films}" SelectedItem="{Binding selectedFilm}" >
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style>
+
+                                <Setter Property="ListBoxItem.Margin" Value="5"/>
+                                <Setter Property="ListBoxItem.Padding" Value="5"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </StackPanel>
             </TabItem>
         </TabControl>
 

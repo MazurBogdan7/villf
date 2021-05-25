@@ -27,15 +27,17 @@ namespace villf
         public MainVillf(string login)
         {
             vm = new MainViewModel();
+            
             InitializeComponent();
+            NameUser.Text = login;
             DataContext = new MainViewModel();
             vm.prpremiere_films();
             this.Nfilms.DataContext = vm;
-            vm.suggestedFilm();
+            vm.suggestedFilm(login);
             this.SugFilm.DataContext = vm;
             this.DataContext = new MainViewModel();
 
-            NameUser.Text = login;
+            
             this.NameUser.DataContext = vm;
             
 
@@ -105,6 +107,10 @@ namespace villf
         public void TabEstimations(object sender, RoutedEventArgs e)
         {
             Tabcontrol(5);
+        }
+        public void TabFormatSearch(object sender, RoutedEventArgs e)
+        {
+            Tabcontrol(6);
         }
 
     }
