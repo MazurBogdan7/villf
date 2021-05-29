@@ -16,6 +16,7 @@ namespace villf
     public partial class MainVillf : Window
     {
         static int newIndex;
+        private string chekRadiobutton;
         void Tabcontrol(int n)
         {
 
@@ -113,5 +114,19 @@ namespace villf
             Tabcontrol(6);
         }
 
+     
+
+        private void RadioButtonAgeChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton pressed = (RadioButton)sender;
+            chekRadiobutton = pressed.Content.ToString();
+
+        }
+
+        private void FormatSearch(object sender, RoutedEventArgs e)
+        {
+            vm.FormatSearchFilm(year.Text,month.Text,country.Text,chekRadiobutton,time.Text,estim.Text,nameFilm.Text);
+
+        }
     }
 }

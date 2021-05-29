@@ -225,5 +225,13 @@ namespace villf
         }
         private ICommand _AllEstim;
         public ICommand AllEstim => _AllEstim ?? (_AllEstim = new RelayCommand(EstimUser));
+
+        public void FormatSearchFilm(string year, string month, string country, string ageRating, string time, string estim, string name)
+        {
+            List<object> Searchfilms = new List<object>();
+            Searchfilms = Model.Film_FormatSearch(year, month, country, ageRating, time, estim, name);
+
+
+        }
     }
 }

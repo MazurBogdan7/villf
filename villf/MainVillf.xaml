@@ -303,40 +303,42 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  Margin="20,10,0,0" Text="Год премьеры:"/>
-                                <TextBox Margin="10,10,0,0" Width="40"/>
+                                <TextBlock   Margin="20,10,0,0" Text="Год премьеры:"/>
+                                <TextBox x:Name="year" Margin="10,10,0,0" Width="40"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Месяц премьеры:"/>
-                                <TextBox Margin="10,10,0,0" Width="40"/>
+                                <TextBox x:Name="month" Margin="10,10,0,0" Width="40"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Страна:"/>
-                                <TextBox Margin="10,10,0,0" Width="40"/>
+                                <TextBox x:Name="country" Margin="10,10,0,0" Width="40"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Возростной рейтинг:"/>
-                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="0+"/>
-                                <!--Checked="RadioButtonAgeChecked"-->
-                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="6+"/>
-                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="12+"/>
-                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="16+"/>
-                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="18+"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="0+" Checked="RadioButtonAgeChecked"/>
+
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="6+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="12+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="16+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="18+" Checked="RadioButtonAgeChecked"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Длительность:"/>
-                                <TextBox Margin="10,10,0,0" Width="40"/>
+                                <TextBox x:Name="time" Margin="10,10,0,0" Width="40"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Оценка фильма:"/>
-                                <TextBox Margin="10,10,0,0" Width="40"/>
+                                <TextBox x:Name="estim" Margin="10,10,0,0" Width="40"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  Margin="20,10,0,0" Text="Название фильма:"/>
-                                <TextBox Margin="10,10,0,0" Width="400"/>
+                                <TextBox x:Name="nameFilm" Margin="10,10,0,0" Width="400"/>
+                                
                             </StackPanel>
+                            <Button Foreground="White" Content="Применить фильтр" Margin="0,20,0,0" Click="FormatSearch"></Button>
                         </StackPanel>
                         
                     </StackPanel>

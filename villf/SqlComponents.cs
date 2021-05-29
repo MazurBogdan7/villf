@@ -508,6 +508,21 @@ namespace villf
             connection.Close();
             return ListEstms;
         }
+
+        public List<object> Film_FormatSearch(string year, string month, string country, string ageRating, string time, string estim, string name)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            List<object> ListFilm = new List<object>();
+            string getFilmFormatS = "formatSearchFilms";
+            SqlCommand GetFilmsSearch = new SqlCommand(getFilmFormatS, connection);
+            GetFilmsSearch.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter year = new SqlParameter("@year", year);
+
+            read.Close();
+            connection.Close();
+            return ListFilm;
+        }
         public ObservableCollection<film> GetInfoFilm(string nameFilm) 
         {
             SqlConnection connection = new SqlConnection(connectionString);
