@@ -517,7 +517,31 @@ namespace villf
             string getFilmFormatS = "formatSearchFilms";
             SqlCommand GetFilmsSearch = new SqlCommand(getFilmFormatS, connection);
             GetFilmsSearch.CommandType = System.Data.CommandType.StoredProcedure;
-            SqlParameter year = new SqlParameter("@year", year);
+
+            SqlParameter P_year = new SqlParameter("@year", year);
+            SqlParameter P_month = new SqlParameter("@month", month);
+            SqlParameter P_country = new SqlParameter("@country", country);
+            SqlParameter P_ageRating = new SqlParameter("@age", ageRating);
+            SqlParameter P_time = new SqlParameter("@time", time);
+            SqlParameter P_estim = new SqlParameter("@estim", estim);
+            SqlParameter P_name = new SqlParameter("@nameFilm", name);
+            GetFilmsSearch.Parameters.Add(P_year);
+            GetFilmsSearch.Parameters.Add(P_month);
+            GetFilmsSearch.Parameters.Add(P_country);
+            GetFilmsSearch.Parameters.Add(P_ageRating);
+            GetFilmsSearch.Parameters.Add(P_time);
+            GetFilmsSearch.Parameters.Add(P_estim);
+            GetFilmsSearch.Parameters.Add(P_name);
+            SqlDataReader read = GetFilmsSearch.ExecuteReader();
+            if (read.HasRows)
+            {
+                while (read.Read())
+                {
+                    ListFilm.Add(read.GetString(0));
+                    ListFilm.Add(read.GetValue(1));
+
+                }
+            }
 
             read.Close();
             connection.Close();

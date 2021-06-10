@@ -228,10 +228,23 @@ namespace villf
 
         public void FormatSearchFilm(string year, string month, string country, string ageRating, string time, string estim, string name)
         {
+            films.Clear();
             List<object> Searchfilms = new List<object>();
-            Searchfilms = Model.Film_FormatSearch(year, month, country, ageRating, time, estim, name);
-
-
+            Searchfilms = Model.Film_FormatSearch(
+                year == "" ? null : year,
+                month == "" ? null : month, 
+                country == "" ? null : country, 
+                ageRating == "" ? null : ageRating,
+                time == "" ? null : time,
+                estim == "" ? null : estim, 
+                name == "" ? null : name
+                );
+            for(int i = 0; i < Searchfilms.Count; ++i)
+            {
+                string nFilm = (string)Searchfilms[i];
+                byte[] poster = (byte[])Searchfilms[i = i + 1];
+                films.Add(new film(nFilm, poster, 0, 0, "", "", "", "", 0, "", ""));
+            }
         }
     }
 }

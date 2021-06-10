@@ -112,6 +112,7 @@ namespace villf
         public void TabFormatSearch(object sender, RoutedEventArgs e)
         {
             Tabcontrol(6);
+            formatSearch.DataContext = vm;
         }
 
      
@@ -125,7 +126,7 @@ namespace villf
 
         private void FormatSearch(object sender, RoutedEventArgs e)
         {
-            vm.FormatSearchFilm(year.Text,month.Text,country.Text,chekRadiobutton,time.Text,estim.Text,nameFilm.Text);
+            vm.FormatSearchFilm(year.Text, month.Text, country.Text, chekRadiobutton, time.Text, estim.Text, nameFilm.Text);
 
         }
     }
