@@ -634,5 +634,10 @@ namespace villf
             connection.Close();
             return ListCreators;
         }
+        public void addFilm(string year, string month, string country, string ageRating, string time, string estim, string name)
+        { 
+            
+        
+        }
     }
 }

@@ -76,6 +76,7 @@
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Button  Content="Профиль" Command="{Binding Path=output}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabUser"/>
             <Button  Content="Ваши Оценки" Command="{Binding AllEstim}" CommandParameter="{Binding Text ,ElementName=NameUser}" Click="TabEstimations" />
+            <Button Content="Упровление фильмами" Click="TabControlFilms" />
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" >
@@ -358,6 +359,51 @@
                         </ListBox.ItemContainerStyle>
                     </ListBox>
                 </StackPanel>
+            </TabItem>
+            <TabItem Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock   Margin="20,10,0,0" Text="Год премьеры:"/>
+                                <TextBox x:Name="C_year" Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Месяц премьеры:"/>
+                                <TextBox x:Name="C_month" Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Страна:"/>
+                                <TextBox x:Name="C_country" Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Возростной рейтинг:"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="0+" Checked="RadioButtonAgeChecked"/>
+
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="6+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age" Foreground="White" Content="12+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="16+" Checked="RadioButtonAgeChecked"/>
+                                <RadioButton Margin="20,10,0,0" GroupName="age"  Foreground="White" Content="18+" Checked="RadioButtonAgeChecked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Длительность:"/>
+                                <TextBox x:Name="C_time" Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Оценка фильма:"/>
+                                <TextBox x:Name="C_estim" Margin="10,10,0,0" Width="40"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Margin="20,10,0,0" Text="Название фильма:"/>
+                                <TextBox x:Name="C_nameFilm" Margin="10,10,0,0" Width="400"/>
+                                
+                            </StackPanel>
+                            <Button Foreground="White" Content="Добавить фильм" Margin="0,20,0,0" Click="ControlFilm"></Button>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                
             </TabItem>
         </TabControl>
 

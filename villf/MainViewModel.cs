@@ -9,6 +9,17 @@ namespace villf
 {
     class MainViewModel :baseVM
     {
+        private string _messeg;
+        public string messeg
+        {
+            get => _messeg;
+            set
+            {
+
+                _messeg = value;
+                OnPropertyChanged(nameof(messeg));
+            }
+        }
         static SqlComponents Model = new SqlComponents();
 
         private string _login;
@@ -244,6 +255,32 @@ namespace villf
                 string nFilm = (string)Searchfilms[i];
                 byte[] poster = (byte[])Searchfilms[i = i + 1];
                 films.Add(new film(nFilm, poster, 0, 0, "", "", "", "", 0, "", ""));
+            }
+        }
+
+        bool checkAdd(string year, string month, string country, string ageRating, string time, string estim, string name)
+        { 
+            bool check;
+            if (year == "") return true; else check = false;
+            if (month == "") return true; else check = false;
+            if (country == "") return true; else check = false;
+            if (ageRating == "") return true; else check = false;
+            if (time == "") return true; else check = false;
+            if (estim == "") return true; else check = false;
+            if (name == "") return true; else check = false;
+
+            return check;
+        }
+        public void ADDFilms(string year, string month, string country, string ageRating, string time, string estim, string name)
+        {
+            
+            if (checkAdd(year, month, country, ageRating, time, estim, name))
+            {
+                messeg = "Введите все значения";
+            }
+            else 
+            {
+                Model.addFilm(year, month, country, ageRating, time, estim, name);
             }
         }
     }

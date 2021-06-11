@@ -28,7 +28,7 @@ namespace villf
         public MainVillf(string login)
         {
             vm = new MainViewModel();
-            
+
             InitializeComponent();
             NameUser.Text = login;
             DataContext = new MainViewModel();
@@ -38,9 +38,9 @@ namespace villf
             this.SugFilm.DataContext = vm;
             this.DataContext = new MainViewModel();
 
-            
+
             this.NameUser.DataContext = vm;
-            
+
 
 
 
@@ -48,7 +48,7 @@ namespace villf
         }
         void TBchangSearch(object sender, TextChangedEventArgs e)
         {
-           vm.cleaningSearch();
+            vm.cleaningSearch();
 
             if (search.Text == "")
             {
@@ -64,7 +64,7 @@ namespace villf
                 search.Background = textImageBrush;
 
                 Tabcontrol(1);
-                
+
             }
 
             else
@@ -96,7 +96,7 @@ namespace villf
                 this.people.DataContext = vm;
                 this.points.DataContext = vm;
                 this.UserPoint.DataContext = vm;
-               
+
 
             }
         }
@@ -111,11 +111,16 @@ namespace villf
         }
         public void TabFormatSearch(object sender, RoutedEventArgs e)
         {
+            chekRadiobutton = null;
             Tabcontrol(6);
             formatSearch.DataContext = vm;
         }
 
-     
+        public void TabControlFilms(object sender, RoutedEventArgs e)
+        {
+            chekRadiobutton = null;
+            Tabcontrol(7);
+        }
 
         private void RadioButtonAgeChecked(object sender, RoutedEventArgs e)
         {
@@ -127,6 +132,11 @@ namespace villf
         private void FormatSearch(object sender, RoutedEventArgs e)
         {
             vm.FormatSearchFilm(year.Text, month.Text, country.Text, chekRadiobutton, time.Text, estim.Text, nameFilm.Text);
+
+        }
+        private void ControlFilm(object sender, RoutedEventArgs e)
+        {
+            vm.ADDFilms(C_year.Text, C_month.Text, C_country.Text, chekRadiobutton, C_time.Text, C_estim.Text, C_nameFilm.Text);
 
         }
     }
